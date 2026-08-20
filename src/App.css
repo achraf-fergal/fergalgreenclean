@@ -1,0 +1,105 @@
+.app-shell {
+  min-height: 100vh;
+  background: #f4f1ea;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 24px 32px;
+}
+
+.brand {
+  color: #1c3b36;
+  font-family: Georgia, serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+nav a,
+.text-link {
+  color: #315e55;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a.active,
+.text-link:hover {
+  color: #c15b39;
+}
+
+.page-content {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 80px 32px;
+}
+
+.page-section {
+  max-width: 680px;
+  padding: 48px 0;
+}
+
+.eyebrow {
+  color: #c15b39;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+h1 {
+  max-width: 680px;
+  margin: 16px 0;
+  color: #1c3b36;
+  font-family: Georgia, serif;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.98;
+}
+
+.lead {
+  max-width: 560px;
+  margin: 24px 0 32px;
+  color: #596762;
+  font-size: 1.15rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 13px 18px;
+  border-radius: 3px;
+  background: #1c3b36;
+  color: #fffaf1;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: #c15b39;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #e5dfd2;
+  color: #1c3b36;
+}
+
+@media (max-width: 600px) {
+  .site-header,
+  .page-content {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .page-content {
+    padding-top: 48px;
+  }
+}

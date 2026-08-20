@@ -1,0 +1,6 @@
+/* Keep the original Webflow CSS in your project. These rules are only for the React/Swiper behavior. */
+.sector-image-swiper { width: 100%; height: 100%; }
+.sector-image-swiper .swiper-slide { width: 100%; height: 100%; }
+@media (max-width: 767px) {
+  .sector-image-swiper { height: 100%; }
+}
