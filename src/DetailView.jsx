@@ -6,10 +6,10 @@
  * ─────────────────────────────────────────────────────────────────────────
  */
 import React, { useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { darken, useIsMobile } from "./helpers"
+import { darken, useIsMobile } from "./helpers";
 
 const imageCache = new Map();
 
@@ -29,13 +29,33 @@ function preloadImage(src) {
   return promise;
 }
 
-
 export function DetailView({ project, onBack }) {
   const overlayRef = useRef(null);
   const contentRef = useRef(null);
   const progressRef = useRef(null);
   const isMobile = useIsMobile();
+  const navigate = useNavigate();
+const goToContact = (e) => {
+  e.preventDefault();
 
+  // إغلاق الـ DetailView أولاً
+  onBack();
+
+  // تغيير الـ URL
+  navigate("/#contact");
+
+  // ننتظر حتى يختفي الـ overlay وتظهر الصفحة الرئيسية
+  setTimeout(() => {
+    const contact = document.getElementById("contact");
+
+    if (contact) {
+      contact.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, 100);
+};
   useEffect(() => {
     if (!project) return;
 
@@ -71,42 +91,42 @@ export function DetailView({ project, onBack }) {
       } else {
         gsap.set(sec, { opacity: 1 });
       }
-const items = Array.from(sec.querySelectorAll(".h-item"));
+      const items = Array.from(sec.querySelectorAll(".h-item"));
 
-items.forEach((el) => {
-  gsap.killTweensOf(el);
+      items.forEach((el) => {
+        gsap.killTweensOf(el);
 
-  gsap.set(el, {
-    clearProps: "transform,filter",
-    opacity: 1,
-    visibility: "visible",
-  });
-});
+        gsap.set(el, {
+          clearProps: "transform,filter",
+          opacity: 1,
+          visibility: "visible",
+        });
+      });
 
-items.forEach((el, i) => {
-  gsap.fromTo(
-    el,
-    {
-      opacity: 0,
-      y: 46,
-      filter: "blur(3px)",
-    },
-    {
-      opacity: 1,
-      y: 0,
-      filter: "blur(0px)",
-      duration: 0.72,
-      ease: "power3.out",
-      delay: i * 0.08,
-      overwrite: "auto",
-    }
-  );
-});
+      items.forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          {
+            opacity: 0,
+            y: 46,
+            filter: "blur(3px)",
+          },
+          {
+            opacity: 1,
+            y: 0,
+            filter: "blur(0px)",
+            duration: 0.72,
+            ease: "power3.out",
+            delay: i * 0.08,
+            overwrite: "auto",
+          },
+        );
+      });
     };
 
     if (sections[0]) revealSection(sections[0]);
 
-const titleEl = overlay.querySelector(".split-text-target");
+    const titleEl = overlay.querySelector(".split-text-target");
     let splitCtx = null;
     try {
       if (titleEl) {
@@ -194,20 +214,20 @@ const titleEl = overlay.querySelector(".split-text-target");
       };
       overlay.addEventListener("scroll", onScroll, { passive: true });
 
-const io = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        revealSection(entry.target);
-      }
-    });
-  },
-  {
-    root: overlay,
-    threshold: 0,
-    rootMargin: "0px 0px -20% 0px",
-  }
-);
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              revealSection(entry.target);
+            }
+          });
+        },
+        {
+          root: overlay,
+          threshold: 0,
+          rootMargin: "0px 0px -20% 0px",
+        },
+      );
       sections.forEach((s) => io.observe(s));
 
       const ioPreload = new IntersectionObserver(
@@ -218,15 +238,16 @@ const io = new IntersectionObserver(
             }
           });
         },
-        { root: overlay, rootMargin: "500px 0px" }
+        { root: overlay, rootMargin: "500px 0px" },
       );
       sections.forEach((s) => ioPreload.observe(s));
 
-requestAnimationFrame(() => {
-  sections.forEach((section) => revealSection(section));
-});setTimeout(() => {
-  sections.forEach((section) => revealSection(section));
-}, 100);
+      requestAnimationFrame(() => {
+        sections.forEach((section) => revealSection(section));
+      });
+      setTimeout(() => {
+        sections.forEach((section) => revealSection(section));
+      }, 100);
       return () => {
         overlay.removeEventListener("scroll", onScroll);
         io.disconnect();
@@ -245,7 +266,11 @@ requestAnimationFrame(() => {
 
     // --- Proximity-based lazy image preloader ---
     // Loads images for current + next section only. Far sections remain unloaded.
-    const preloadImagesNearPosition = (x, isMobileIO = false, targetSection = null) => {
+    const preloadImagesNearPosition = (
+      x,
+      isMobileIO = false,
+      targetSection = null,
+    ) => {
       const vw = overlay.clientWidth;
       const sectionsToLoad = [];
 
@@ -265,11 +290,11 @@ requestAnimationFrame(() => {
       }
 
       sectionsToLoad.forEach((sec) => {
-        const lazyEls = sec.querySelectorAll('[data-lazy-src]');
+        const lazyEls = sec.querySelectorAll("[data-lazy-src]");
         lazyEls.forEach((el) => {
-          const src = el.getAttribute('data-lazy-src');
+          const src = el.getAttribute("data-lazy-src");
           if (src) {
-            el.removeAttribute('data-lazy-src');
+            el.removeAttribute("data-lazy-src");
             preloadImage(src).then(() => {
               el.style.backgroundImage = `url(${src})`;
             });
@@ -363,7 +388,7 @@ requestAnimationFrame(() => {
       {/* ── Fixed "View All Projects" button ── */}
       <button
         to="/servise"
-           onClick={onBack}
+        onClick={onBack}
         className="fixed bottom-8 right-8 z-[70] flex items-center gap-3 group"
         style={{
           background: "rgba(0,0,0,0.55)",
@@ -379,22 +404,22 @@ requestAnimationFrame(() => {
           letterSpacing: "0.18em",
           textTransform: "uppercase",
           textDecoration: "none",
-          transition: "background 0.3s ease, border-color 0.3s ease, transform 0.3s ease",
+          transition:
+            "background 0.3s ease, border-color 0.3s ease, transform 0.3s ease",
         }}
-        onMouseEnter={e => {
+        onMouseEnter={(e) => {
           e.currentTarget.style.background = project.color;
           e.currentTarget.style.color = "#000";
           e.currentTarget.style.borderColor = project.color;
           e.currentTarget.style.transform = "translateY(-3px)";
         }}
-        onMouseLeave={e => {
+        onMouseLeave={(e) => {
           e.currentTarget.style.background = "rgba(0,0,0,0.55)";
           e.currentTarget.style.color = project.color;
           e.currentTarget.style.borderColor = `${project.color}55`;
           e.currentTarget.style.transform = "translateY(0)";
         }}
       >
-
         View All Projects
       </button>
 
@@ -478,31 +503,25 @@ requestAnimationFrame(() => {
               paddingTop: "10vh",
             }}
           >
-            <div
-              className="hero-meta flex justify-between w-[85%] sm:w-4/5 md:w-[42%] mb-4 sm:mb-5"
-            >
-              <span
-                className="font-sans text-[0.62rem] sm:text-[0.7rem] tracking-[0.12em] uppercase text-black/50"
-              >
+            <div className="hero-meta flex justify-between w-[85%] sm:w-4/5 md:w-[42%] mb-4 sm:mb-5">
+              <span className="font-sans text-[0.62rem] sm:text-[0.7rem] tracking-[0.12em] uppercase text-black/50">
                 {project.location}
               </span>
-              <span
-                className="font-sans text-[0.62rem] sm:text-[0.7rem] tracking-[0.12em] uppercase text-black/50"
-              >
+              <span className="font-sans text-[0.62rem] sm:text-[0.7rem] tracking-[0.12em] uppercase text-black/50">
                 {project.year}
               </span>
             </div>
             <div
               className="hero-frame w-[80%] sm:w-3/4 md:w-[32%]"
-style={{
-  width: "clamp(260px, 32vw, 420px)",
-  aspectRatio: "1 / 1",
-  border: `2px solid ${frameBorder}`,
-  padding: "8px",
-  background: frameBorder,
-  boxSizing: "border-box",
-  flexShrink: 0,
-}}
+              style={{
+                width: "clamp(260px, 32vw, 420px)",
+                aspectRatio: "1 / 1",
+                border: `2px solid ${frameBorder}`,
+                padding: "8px",
+                background: frameBorder,
+                boxSizing: "border-box",
+                flexShrink: 0,
+              }}
             >
               <img
                 id={`detail-img-${project.id}`}
@@ -518,9 +537,7 @@ style={{
                 }}
               />
             </div>
-            <p
-              className="hero-tagline mt-4 sm:mt-5 font-sans text-xs sm:text-[0.8rem] tracking-[0.04em] text-black/50 text-center italic px-5"
-            >
+            <p className="hero-tagline mt-4 sm:mt-5 font-sans text-xs sm:text-[0.8rem] tracking-[0.04em] text-black/50 text-center italic px-5">
               {project.tagline}
             </p>
           </div>
@@ -543,9 +560,7 @@ style={{
             </h2>
           </div>
 
-          <div
-            className="hero-scroll-hint absolute right-4 sm:right-6 md:right-8 bottom-6 sm:bottom-8 md:bottom-10 flex-col items-center gap-2 text-black/30 hidden sm:flex"
-          >
+          <div className="hero-scroll-hint absolute right-4 sm:right-6 md:right-8 bottom-6 sm:bottom-8 md:bottom-10 flex-col items-center gap-2 text-black/30 hidden sm:flex">
             <span className="text-[0.6rem] tracking-[0.2em] uppercase font-sans">
               Scroll
             </span>
@@ -566,10 +581,14 @@ style={{
             width: "100vw",
             minHeight: isMobile ? "100svh" : undefined,
             height: isMobile ? undefined : "100vh",
-            opacity: isMobile? 1 : 0,
+            opacity: isMobile ? 1 : 0,
           }}
         >
-          <div className="absolute inset-0 w-full h-full" data-lazy-src={project.rightImage} style={{ backgroundSize: 'cover', backgroundPosition: 'center' }} />
+          <div
+            className="absolute inset-0 w-full h-full"
+            data-lazy-src={project.rightImage}
+            style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+          />
           <div
             className="absolute inset-0"
             style={{
@@ -682,7 +701,14 @@ style={{
                 border: "1px solid rgba(255,255,255,0.08)",
               }}
             >
-              <div className="w-full h-full" data-lazy-src={project.image5} style={{ backgroundSize: 'cover', backgroundPosition: 'center' }} />
+              <div
+                className="w-full h-full"
+                data-lazy-src={project.image5}
+                style={{
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              />
               <div
                 className="absolute inset-0"
                 style={{
@@ -706,7 +732,7 @@ style={{
             width: "100vw",
             minHeight: isMobile ? "80svh" : undefined,
             height: isMobile ? undefined : "100vh",
-             opacity: isMobile ? 1 : 0,
+            opacity: isMobile ? 1 : 0,
             background: "#111",
           }}
         >
@@ -716,7 +742,15 @@ style={{
                 className="h-item relative overflow-hidden flex-1"
                 style={{ opacity: 0 }}
               >
-                <div className="w-full h-full" data-lazy-src={project.image3} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center top" }} />
+                <div
+                  className="w-full h-full"
+                  data-lazy-src={project.image3}
+                  style={{
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    objectPosition: "center top",
+                  }}
+                />
                 <div
                   className="absolute inset-0"
                   style={{
@@ -729,7 +763,15 @@ style={{
                 className="h-item relative overflow-hidden flex-1"
                 style={{ opacity: 0 }}
               >
-                <div className="w-full h-full" data-lazy-src={project.image6} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center 20%" }} />
+                <div
+                  className="w-full h-full"
+                  data-lazy-src={project.image6}
+                  style={{
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    objectPosition: "center 20%",
+                  }}
+                />
                 <div
                   className="absolute inset-0"
                   style={{
@@ -757,7 +799,15 @@ style={{
                 className="h-item relative overflow-hidden"
                 style={{ opacity: 0, flex: "0 0 38%", height: "100%" }}
               >
-                <div className="w-full h-full" data-lazy-src={project.image3} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center top" }} />
+                <div
+                  className="w-full h-full"
+                  data-lazy-src={project.image3}
+                  style={{
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    objectPosition: "center top",
+                  }}
+                />
                 <div
                   className="absolute inset-0"
                   style={{
@@ -774,7 +824,15 @@ style={{
                   className="h-item relative overflow-hidden"
                   style={{ opacity: 0, flex: 1 }}
                 >
-                  <div className="w-full h-full" data-lazy-src={project.image6} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center 20%" }} />
+                  <div
+                    className="w-full h-full"
+                    data-lazy-src={project.image6}
+                    style={{
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      objectPosition: "center 20%",
+                    }}
+                  />
                   <div
                     className="absolute inset-0"
                     style={{
@@ -787,7 +845,15 @@ style={{
                   className="h-item relative overflow-hidden"
                   style={{ opacity: 0, flex: 1 }}
                 >
-                  <div className="w-full h-full" data-lazy-src={project.image7} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center bottom" }} />
+                  <div
+                    className="w-full h-full"
+                    data-lazy-src={project.image7}
+                    style={{
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      objectPosition: "center bottom",
+                    }}
+                  />
                   <div
                     className="absolute inset-0"
                     style={{
@@ -806,7 +872,15 @@ style={{
                   className="h-item relative overflow-hidden"
                   style={{ opacity: 0, flex: "0 0 62%" }}
                 >
-                  <div className="w-full h-full" data-lazy-src={project.image4} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "80% center" }} />
+                  <div
+                    className="w-full h-full"
+                    data-lazy-src={project.image4}
+                    style={{
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      objectPosition: "80% center",
+                    }}
+                  />
                   <div
                     className="absolute inset-0"
                     style={{
@@ -838,7 +912,7 @@ style={{
           {!isMobile && (
             <div
               className="h-item absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4"
-              style={{      opacity: isMobile ? 1 : 0, }}
+              style={{ opacity: isMobile ? 1 : 0 }}
             >
               <div
                 style={{
@@ -868,18 +942,18 @@ style={{
             width: "100vw",
             minHeight: isMobile ? "auto" : undefined,
             height: isMobile ? undefined : "100vh",
-             opacity: isMobile ? 1 : 0,
+            opacity: isMobile ? 1 : 0,
             background: "#0d0d0d",
           }}
         >
-        <div
-  className={isMobile ? "relative" : "absolute inset-0"}
-  style={{
-    display: "flex",
-    flexDirection: isMobile ? "column" : "row",
-    overflowY: isMobile ? "visible" : "hidden",
-  }}
->
+          <div
+            className={isMobile ? "relative" : "absolute inset-0"}
+            style={{
+              display: "flex",
+              flexDirection: isMobile ? "column" : "row",
+              overflowY: isMobile ? "visible" : "hidden",
+            }}
+          >
             <div
               className="flex flex-col justify-center gap-5 sm:gap-6 md:gap-7"
               style={{
@@ -890,7 +964,7 @@ style={{
             >
               <div
                 className="h-item flex items-center gap-3"
-                style={{      opacity: isMobile ? 1 : 0,}}
+                style={{ opacity: isMobile ? 1 : 0 }}
               >
                 <div
                   style={{
@@ -909,7 +983,7 @@ style={{
               <h4
                 className="h-item font-extrabold leading-[1.05] text-white"
                 style={{
-                       opacity: isMobile ? 1 : 0,
+                  opacity: isMobile ? 1 : 0,
                   fontFamily: '"Inter","Helvetica Neue",sans-serif',
                   fontSize: isMobile
                     ? "clamp(2rem,8vw,2.8rem)"
@@ -937,7 +1011,7 @@ style={{
                     key={t}
                     className="h-item font-sans text-[0.6rem] sm:text-[0.62rem] tracking-[0.18em] uppercase px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full"
                     style={{
-                          opacity: isMobile ? 1 : 0,
+                      opacity: isMobile ? 1 : 0,
                       border: `1px solid ${project.color}55`,
                       color: project.color,
                     }}
@@ -952,13 +1026,21 @@ style={{
               <div
                 className="h-item relative overflow-hidden"
                 style={{
-                      opacity: isMobile ? 1 : 0,
+                  opacity: isMobile ? 1 : 0,
                   width: "100%",
                   aspectRatio: "16/9",
                   flexShrink: 0,
                 }}
               >
-                <div className="w-full h-full" data-lazy-src={project.image6} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center 30%" }} />
+                <div
+                  className="w-full h-full"
+                  data-lazy-src={project.image6}
+                  style={{
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    objectPosition: "center 30%",
+                  }}
+                />
                 <div
                   className="absolute inset-0"
                   style={{
@@ -990,7 +1072,15 @@ style={{
                     border: "1px solid rgba(255,255,255,0.06)",
                   }}
                 >
-                  <div className="w-full h-full" data-lazy-src={project.image7} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center 30%" }} />
+                  <div
+                    className="w-full h-full"
+                    data-lazy-src={project.image7}
+                    style={{
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      objectPosition: "center 30%",
+                    }}
+                  />
                   <div
                     className="absolute inset-0"
                     style={{
@@ -1001,7 +1091,7 @@ style={{
                 <div
                   className="h-item absolute"
                   style={{
-                         opacity: isMobile ? 1 : 0,
+                    opacity: isMobile ? 1 : 0,
                     width: "48%",
                     aspectRatio: "4/5",
                     borderRadius: "16px",
@@ -1012,7 +1102,14 @@ style={{
                     border: "1px solid rgba(255,255,255,0.1)",
                   }}
                 >
-                  <div className="w-full h-full" data-lazy-src={project.leftImage} style={{ backgroundSize: 'cover', backgroundPosition: 'center' }} />
+                  <div
+                    className="w-full h-full"
+                    data-lazy-src={project.leftImage}
+                    style={{
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                    }}
+                  />
                   <div
                     className="absolute inset-0"
                     style={{
@@ -1039,10 +1136,19 @@ style={{
             minHeight: isMobile ? "70svh" : undefined,
             height: isMobile ? undefined : "100vh",
             flex: isMobile ? "none" : "0 0 65vw",
-                 opacity: isMobile ? 1 : 0,
+            opacity: isMobile ? 1 : 0,
           }}
         >
-          <div className="absolute inset-0 w-full h-full" data-lazy-src={project.image4} style={{ backgroundSize: 'cover', backgroundPosition: 'center', objectPosition: "center 25%", transform: "scale(1.06)" }} />
+          <div
+            className="absolute inset-0 w-full h-full"
+            data-lazy-src={project.image4}
+            style={{
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              objectPosition: "center 25%",
+              transform: "scale(1.06)",
+            }}
+          />
           <div
             className="absolute inset-0"
             style={{
@@ -1082,7 +1188,7 @@ style={{
               <blockquote
                 className="h-item font-extrabold leading-[1.2] text-white italic"
                 style={{
-                     opacity: isMobile ? 1 : 0,
+                  opacity: isMobile ? 1 : 0,
                   fontFamily: '"Inter","Helvetica Neue",sans-serif',
                   fontSize: isMobile
                     ? "clamp(1.3rem,5vw,1.8rem)"
@@ -1116,7 +1222,7 @@ style={{
         >
           <div
             className="h-item w-8 h-px"
-            style={{      opacity: isMobile ? 1 : 0, background: project.color }}
+            style={{ opacity: isMobile ? 1 : 0, background: project.color }}
           />
           <h4
             className="h-item font-extrabold leading-none text-white text-4xl sm:text-5xl"
@@ -1171,7 +1277,8 @@ style={{
             <p className="font-sans text-[0.56rem] sm:text-[0.58rem] text-white/[.18] uppercase tracking-[0.32em]">
               {project.number} of {String(5).padStart(2, "0")}
             </p>
-            <p className="font-extrabold text-base sm:text-lg md:text-[1.3rem] text-white leading-[1.3] tracking-[-0.02em]"
+            <p
+              className="font-extrabold text-base sm:text-lg md:text-[1.3rem] text-white leading-[1.3] tracking-[-0.02em]"
               style={{ fontFamily: '"Inter","Helvetica Neue",sans-serif' }}
             >
               Ready to build something
@@ -1187,33 +1294,33 @@ style={{
             className="h-item flex flex-col items-center gap-3 w-full"
             style={{ opacity: 0 }}
           >
-            <Link to="/contact" className="w-full">
-            <button
-              data-cursor="grow"
-              className="h-btn w-full rounded-full py-3.5 sm:py-4 px-10 sm:px-12 font-bold text-[0.62rem] sm:text-[0.68rem] tracking-[0.24em] uppercase text-black/85 border-none"
-              style={{
-                background: project.color,
-                fontFamily: '"Inter","Helvetica Neue",sans-serif',
-                cursor: "none",
-              }}
-              onMouseEnter={(e) =>
-                gsap.to(e.currentTarget, {
-                  scale: 1.04,
-                  duration: 0.3,
-                  ease: "power2.out",
-                })
-              }
-              onMouseLeave={(e) =>
-                gsap.to(e.currentTarget, {
-                  scale: 1,
-                  duration: 0.4,
-                  ease: "elastic.out(1,0.5)",
-                })
-              }
-            >
-              Start a Project
-            </button></Link>
-            
+<button
+  onClick={goToContact}
+  data-cursor="grow"
+  className="h-btn w-full rounded-full py-3.5 sm:py-4 px-10 sm:px-12 font-bold text-[0.62rem] sm:text-[0.68rem] tracking-[0.24em] uppercase text-black/85 border-none"
+  style={{
+    background: project.color,
+    fontFamily: '"Inter","Helvetica Neue",sans-serif',
+    cursor: "none",
+  }}
+  onMouseEnter={(e) =>
+    gsap.to(e.currentTarget, {
+      scale: 1.04,
+      duration: 0.3,
+      ease: "power2.out",
+    })
+  }
+  onMouseLeave={(e) =>
+    gsap.to(e.currentTarget, {
+      scale: 1,
+      duration: 0.4,
+      ease: "elastic.out(1,0.5)",
+    })
+  }
+>
+  Start a Project
+</button>
+
             <button
               onClick={onBack}
               data-cursor="grow"
@@ -1240,7 +1347,6 @@ style={{
             >
               ← View All Projects
             </button>
-
           </div>
         </div>
       </div>
