@@ -203,6 +203,43 @@ const goToContact = (e) => {
       );
     }
 
+    // --- Proximity-based lazy image preloader ---
+    // Loads images for current + next section only. Far sections remain unloaded.
+    const preloadImagesNearPosition = (
+      x,
+      isMobileIO = false,
+      targetSection = null,
+    ) => {
+      const vw = overlay.clientWidth;
+      const sectionsToLoad = [];
+
+      if (isMobileIO && targetSection) {
+        // Mobile: load the section entering the 500px lookahead zone
+        sectionsToLoad.push(targetSection);
+      } else {
+        // Desktop/Mobile-init: load sections that are within viewport + 500px ahead.
+        sections.forEach((sec) => {
+          const secLeft = isMobile ? sec.offsetTop + x : sec.offsetLeft + x;
+          if (secLeft < vw + 500) {
+            sectionsToLoad.push(sec);
+          }
+        });
+      }
+
+      sectionsToLoad.forEach((sec) => {
+        const lazyEls = sec.querySelectorAll("[data-lazy-src]");
+        lazyEls.forEach((el) => {
+          const src = el.getAttribute("data-lazy-src");
+          if (src) {
+            el.removeAttribute("data-lazy-src");
+            preloadImage(src).then(() => {
+              el.style.backgroundImage = `url(${src})`;
+            });
+          }
+        });
+      });
+    };
+
     if (isMobile) {
       const onScroll = () => {
         if (!progressRef.current) return;
@@ -242,6 +279,9 @@ const goToContact = (e) => {
       );
       sections.forEach((s) => ioPreload.observe(s));
 
+      // Preload all sections immediately on mobile
+      preloadImagesNearPosition(0);
+
       requestAnimationFrame(() => {
         sections.forEach((section) => revealSection(section));
       });
@@ -263,45 +303,6 @@ const goToContact = (e) => {
       ease: "power3.out",
     });
     const getMaxX = () => -(content.scrollWidth - overlay.clientWidth);
-
-    // --- Proximity-based lazy image preloader ---
-    // Loads images for current + next section only. Far sections remain unloaded.
-    const preloadImagesNearPosition = (
-      x,
-      isMobileIO = false,
-      targetSection = null,
-    ) => {
-      const vw = overlay.clientWidth;
-      const sectionsToLoad = [];
-
-      if (isMobileIO && targetSection) {
-        // Mobile: load the section entering the 500px lookahead zone
-        sectionsToLoad.push(targetSection);
-      } else {
-        // Desktop: load sections that are within viewport + 500px ahead.
-        // "within 500px ahead" = secLeft < vw + 500
-        // This typically covers the current section and the next one.
-        sections.forEach((sec) => {
-          const secLeft = sec.offsetLeft + x;
-          if (secLeft < vw + 500) {
-            sectionsToLoad.push(sec);
-          }
-        });
-      }
-
-      sectionsToLoad.forEach((sec) => {
-        const lazyEls = sec.querySelectorAll("[data-lazy-src]");
-        lazyEls.forEach((el) => {
-          const src = el.getAttribute("data-lazy-src");
-          if (src) {
-            el.removeAttribute("data-lazy-src");
-            preloadImage(src).then(() => {
-              el.style.backgroundImage = `url(${src})`;
-            });
-          }
-        });
-      });
-    };
 
     // Preload Hero + next section on init
     preloadImagesNearPosition(0);
@@ -727,8 +728,8 @@ const goToContact = (e) => {
 
         {/* S3 — Image mosaic */}
         <div
-          className="h-section h-section-full flex-shrink-0 relative overflow-hidden"
-          style={{
+
+  className="hidden md:block h-section h-section-full flex-shrink-0 relative overflow-hidden"          style={{
             width: "100vw",
             minHeight: isMobile ? "80svh" : undefined,
             height: isMobile ? undefined : "100vh",
