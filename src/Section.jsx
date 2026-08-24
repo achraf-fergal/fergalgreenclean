@@ -162,21 +162,29 @@ Zorgvuldig onderhoud van gazon, hagen en groen. Voor een verzorgde tuin die er e
 
             {/* actions */}
             <div className="hero-actions mt-9 flex flex-col gap-3 sm:flex-row">
-              <button
-                type="button"
-                onClick={openQuote}
-                className="group inline-flex min-h-[54px] items-center justify-center gap-3 rounded-full bg-[#315f49] px-7 text-[14px] font-medium text-white shadow-[0_12px_35px_rgba(49,95,73,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#274e3b] hover:shadow-[0_18px_40px_rgba(49,95,73,0.25)]"
-              >
-                Vrijblijvende offerte
+<button
+  type="button"
+  onClick={() => {
+    document.getElementById("contact")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }}
+  style={{ transition: "1s ease" }}
+  className="group inline-flex min-h-[54px] items-center justify-center gap-3 rounded-full bg-[#315f49] px-7 text-[14px] font-medium text-white shadow-[0_12px_35px_rgba(49,95,73,0.18)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#274e3b] hover:shadow-[0_18px_40px_rgba(49,95,73,0.25)]"
+>
+  Vrijblijvende offerte
 
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </button>
+  <ArrowUpRight
+    size={17}
+    className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+  />
+</button>
 
               <a
                 href="#diensten"
+                  style={{ transition: "1s ease" }}
+
                 className="group inline-flex min-h-[54px] items-center justify-center gap-3 rounded-full border border-[#cad5cd] bg-white/60 px-7 text-[14px] font-medium text-[#31523f] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#315f49] hover:bg-white"
               >
                 Bekijk onze diensten
