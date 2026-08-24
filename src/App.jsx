@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link, Route, Routes } from "react-router-dom";
 import "./App.css";
 import FergalGreenClean from "./home";
@@ -7,7 +8,6 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<FergalGreenClean />} />
-          <Route path="/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
@@ -15,28 +15,31 @@ function App() {
   );
 }
 
-function About() {
-  return (
-    <section className="page-section">
-      <p className="eyebrow">About</p>
-      <h1>A simple route, ready to grow</h1>
-      <p className="lead">
-        This page is rendered by React Router at <code>/about</code>.
-      </p>
-      <Link className="text-link" to="/">
-        Back to home
-      </Link>
-    </section>
-  );
-}
-
 function NotFound() {
+  // Keep this route out of the index even though the SPA always serves a
+  // 200 response — search engines respect a client-rendered noindex tag.
+  useEffect(() => {
+    const meta = document.createElement("meta");
+    meta.name = "robots";
+    meta.content = "noindex, follow";
+    document.head.appendChild(meta);
+    const previousTitle = document.title;
+    document.title = "Pagina niet gevonden | Fergal Green & Clean";
+    return () => {
+      document.head.removeChild(meta);
+      document.title = previousTitle;
+    };
+  }, []);
+
   return (
     <section className="page-section">
       <p className="eyebrow">404</p>
-      <h1>Page not found</h1>
+      <h1>Pagina niet gevonden</h1>
+      <p className="lead">
+        Deze pagina bestaat niet (meer). Ga terug naar de homepage.
+      </p>
       <Link className="text-link" to="/">
-        Return home
+        Terug naar home
       </Link>
     </section>
   );

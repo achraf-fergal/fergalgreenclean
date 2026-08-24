@@ -25,8 +25,6 @@ import {
   X,
 } from "lucide-react";
 import Section from "./Section.jsx";
-import SectorSlider from "./SectorSlider";
-import Scrol from "./scrol.jsx";
 import DetailView from "./DetailView"; // adjust path to where DetailView.jsx lives
 
 // High-resolution Unsplash URLs with professional query parameters
@@ -55,6 +53,7 @@ const getServiceDetails = () => ({
       "/schoonmaak/Gemini_Generated_Image_k1on6zk1on6zk1on.jpg",
       "/schoonmaak/Gemini_Generated_Image_ql7amyql7amyql7a.jpg",
       "/schoonmaak/Gemini_Generated_Image_vb5t7qvb5t7qvb5t.jpg",
+      '/schoonmaak/image.png',
     ],
 
     quote: "Een schone ruimte is het begin van een goede dag.",
@@ -93,12 +92,16 @@ const getServiceDetails = () => ({
 
     images: [
       "/jardan/Gemini_Generated_Image_eh8tnteh8tnteh8t.jpg",
-      "/jardan/Gemini_Generated_Image_h412feh412feh412.jpg",
+
       "/jardan/Gemini_Generated_Image_oiy0qoiy0qoiy0qo (1).jpg",
+     
       "/jardan/Gemini_Generated_Image_q4nfl6q4nfl6q4nf.jpg",
+                 "/jardan/Gemini_Generated_Image_h412feh412feh412.jpg",
+
       "/jardan/Gemini_Generated_Image_qvaiz1qvaiz1qvai.jpg",
       "/jardan/Gemini_Generated_Image_sqz19psqz19psqz1.jpg",
       '/jardan/Gemini_Generated_Image_wpm30hwpm30hwpm3.jpg',
+      '/jardan/image.png',
     ],
 
     quote: "Een verzorgde tuin geeft rust aan een heel huis.",
@@ -120,15 +123,17 @@ const getServiceDetails = () => ({
   },
 });
 /* -------------------------------------------------------------------------
-   Local image imports from the original project have been replaced with
-   placeholder URLs below (the source .jpg/.png assets aren't available in
-   this single-file context). Swap these for your own image URLs / imports.
+   Real project photography (no external placeholder services).
 ------------------------------------------------------------------------- */
-const flyerAsset = "https://picsum.photos/seed/fergal-flyer/685/988";
+const flyerAsset =
+  "/schoonmaak/Gemini_Generated_Image_ql7amyql7amyql7a.jpg";
 const logoMarkAsset = "/image.png"; // Replace with your actual logo path
-const cleanHomeAsset = "https://picsum.photos/seed/fergal-home/900/700";
-const cleanOfficeAsset = "https://picsum.photos/seed/fergal-office/900/700";
-const gardenCareAsset = "https://picsum.photos/seed/fergal-garden/900/700";
+const cleanHomeAsset =
+  "/schoonmaak/Gemini_Generated_Image_k1on6zk1on6zk1on.jpg";
+const cleanOfficeAsset =
+  "/schoonmaak/Gemini_Generated_Image_6xhnas6xhnas6xhn.jpg";
+const gardenCareAsset =
+  "/jardan/Gemini_Generated_Image_h412feh412feh412.jpg";
 
 const services = [
   {
@@ -733,14 +738,15 @@ function Home() {
                 className="group relative aspect-[1.45/1] overflow-hidden rounded-[10px] bg-[#073b66] cursor-pointer"
               >
                 <img
-                  src={serviceDetails.schoonmaak.images[0]}
-                  alt="Schoonmaak"
+                  src={serviceDetails.schoonmaak.images[7]}
+                  alt="Professionele schoonmaak van een woning in Maastricht"
+                  loading="lazy"
                   className="
         absolute
         inset-0
         h-full
         w-full
-        object-cover
+        object-none
         transition-transform
         duration-700
         ease-out
@@ -792,14 +798,15 @@ function Home() {
                 className="group relative aspect-[1.45/1] overflow-hidden rounded-[10px] bg-[#073b66] cursor-pointer"
               >
                 <img
-                  src={serviceDetails.tuinonderhoud.images[0]}
-                  alt="Tuinonderhoud"
+                  src={serviceDetails.tuinonderhoud.images[7]}
+                  alt="Onderhouden tuin en gazon in Maastricht"
+                  loading="lazy"
                   className="
         absolute
         inset-0
         h-full
         w-full
-        object-cover
+        object-none
         transition-transform
         duration-700
         ease-out
@@ -882,6 +889,7 @@ function Home() {
               <img
                 src={gardenCareAsset}
                 alt="Fergal verzorgt tuinen met aandacht voor de omgeving"
+                loading="lazy"
               />
               <div className="bike-label">
                 <strong>Van deur tot tuin.</strong>
@@ -1122,8 +1130,6 @@ function Home() {
 }
 
 const styles = `
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&display=swap');
-
 .fergal-root {
   --background: 48 28% 96%;
   --foreground: 217 54% 16%;

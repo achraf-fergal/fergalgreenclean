@@ -524,19 +524,19 @@ const goToContact = (e) => {
                 flexShrink: 0,
               }}
             >
-              <img
-                id={`detail-img-${project.id}`}
-                src={project.image4}
-                data-cursor="grow"
-                style={{
-                  width: "100%",
-                  backgroundSize: "cover",
-                  height: "100%",
-                  objectFit: "cover",
-                  display: "block",
-                  willChange: "transform",
-                }}
-              />
+<img
+  id={`detail-img-${project.id}`}
+  src={project.image8}
+  alt={`${project.name} in ${project.location}`}
+  data-cursor="grow"
+  className="block w-full h-full"
+  style={{
+    objectFit: "cover",
+    objectPosition: "center",
+    display: "block",
+    willChange: "transform",
+  }}
+/>
             </div>
             <p className="hero-tagline mt-4 sm:mt-5 font-sans text-xs sm:text-[0.8rem] tracking-[0.04em] text-black/50 text-center italic px-5">
               {project.tagline}
@@ -706,7 +706,7 @@ const goToContact = (e) => {
                 className="w-full h-full"
                 data-lazy-src={project.image5}
                 style={{
-                  backgroundSize: "cover",
+                  backgroundSize: "110% 100%",
                   backgroundPosition: "center",
                 }}
               />
@@ -747,7 +747,7 @@ const goToContact = (e) => {
                   className="w-full h-full"
                   data-lazy-src={project.image3}
                   style={{
-                    backgroundSize: "cover",
+                    backgroundSize: "100% 100%",
                     backgroundPosition: "center",
                     objectPosition: "center top",
                   }}
@@ -768,7 +768,7 @@ const goToContact = (e) => {
                   className="w-full h-full"
                   data-lazy-src={project.image6}
                   style={{
-                    backgroundSize: "cover",
+                    backgroundSize: "100% 100%",
                     backgroundPosition: "center",
                     objectPosition: "center 20%",
                   }}
@@ -804,7 +804,7 @@ const goToContact = (e) => {
                   className="w-full h-full"
                   data-lazy-src={project.image3}
                   style={{
-                    backgroundSize: "cover",
+                    backgroundSize: "100% 100%",
                     backgroundPosition: "center",
                     objectPosition: "center top",
                   }}
@@ -829,7 +829,7 @@ const goToContact = (e) => {
                     className="w-full h-full"
                     data-lazy-src={project.image6}
                     style={{
-                      backgroundSize: "cover",
+                      backgroundSize: "100% 100%",
                       backgroundPosition: "center",
                       objectPosition: "center 20%",
                     }}
@@ -850,7 +850,7 @@ const goToContact = (e) => {
                     className="w-full h-full"
                     data-lazy-src={project.image7}
                     style={{
-                      backgroundSize: "cover",
+                      backgroundSize: "100% 100%",
                       backgroundPosition: "center",
                       objectPosition: "center bottom",
                     }}
@@ -877,7 +877,7 @@ const goToContact = (e) => {
                     className="w-full h-full"
                     data-lazy-src={project.image4}
                     style={{
-                      backgroundSize: "cover",
+                      backgroundSize: "100% 100%",
                       backgroundPosition: "center",
                       objectPosition: "80% center",
                     }}
@@ -1037,7 +1037,7 @@ const goToContact = (e) => {
                   className="w-full h-full"
                   data-lazy-src={project.image6}
                   style={{
-                    backgroundSize: "cover",
+                    backgroundSize: "100% 100%",
                     backgroundPosition: "center",
                     objectPosition: "center 30%",
                   }}
@@ -1077,7 +1077,7 @@ const goToContact = (e) => {
                     className="w-full h-full"
                     data-lazy-src={project.image7}
                     style={{
-                      backgroundSize: "cover",
+                      backgroundSize: "100% 100%",
                       backgroundPosition: "center",
                       objectPosition: "center 30%",
                     }}
@@ -1107,7 +1107,7 @@ const goToContact = (e) => {
                     className="w-full h-full"
                     data-lazy-src={project.leftImage}
                     style={{
-                      backgroundSize: "cover",
+                      backgroundSize: "100% 100%",
                       backgroundPosition: "center",
                     }}
                   />
@@ -1144,7 +1144,7 @@ const goToContact = (e) => {
             className="absolute inset-0 w-full h-full"
             data-lazy-src={project.image4}
             style={{
-              backgroundSize: "cover",
+              backgroundSize: "100% 100%",
               backgroundPosition: "center",
               objectPosition: "center 25%",
               transform: "scale(1.06)",

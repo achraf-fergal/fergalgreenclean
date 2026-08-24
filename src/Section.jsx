@@ -8,8 +8,9 @@ import {
   Scissors,
 } from "lucide-react";
 
-const heroImage =
-  "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=85";
+// Local asset instead of an external Unsplash request, so the LCP image
+// loads from the same origin with no extra DNS/TLS round trip.
+const heroImage = "/schoonmaak/Gemini_Generated_Image_aswtedaswtedaswt.jpg";
 
 export default function FergalGreenCleanHero({ openQuote }) {
   const root = useRef(null);
@@ -137,11 +138,15 @@ export default function FergalGreenCleanHero({ openQuote }) {
           {/* LEFT */}
           <div>
 <h1 className="max-w-[800px] text-[#17352a]">
-  <span className="hero-title-line block font-[Playfair_Display,serif] text-[clamp(4rem,8vw,7.5rem)] font-medium leading-[0.86] tracking-[-0.055em]">
+  <span className="sr-only">
+    Professionele schoonmaak &amp; tuinonderhoud in Maastricht &mdash; Fergal Green &amp; Clean
+  </span>
+
+  <span aria-hidden="true" className="hero-title-line block font-[Playfair_Display,serif] text-[clamp(4rem,8vw,7.5rem)] font-medium leading-[0.86] tracking-[-0.055em]">
     Fergal
   </span>
 
-  <span className="hero-title-line mt-2 block font-[Playfair_Display,serif] text-[clamp(3.4rem,6.5vw,6.3rem)] font-medium italic leading-[0.9] tracking-[-0.05em] text-[#3d7658]">
+  <span aria-hidden="true" className="hero-title-line mt-2 block font-[Playfair_Display,serif] text-[clamp(3.4rem,6.5vw,6.3rem)] font-medium italic leading-[0.9] tracking-[-0.05em] text-[#3d7658]">
     Green &amp; Clean.
   </span>
 </h1>
@@ -208,8 +213,12 @@ Zorgvuldig onderhoud van gazon, hagen en groen. Voor een verzorgde tuin die er e
               {/* image */}
               <div className="group relative overflow-hidden rounded-[28px] bg-[#dfe8df] shadow-[0_30px_80px_rgba(32,62,48,0.16)]">
                 <img
-                  src={heroImage}
-                  alt="Professionele schoonmaak"
+                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1400&q=85"
+                  alt="Professionele schoonmaak en tuinonderhoud door Fergal Green & Clean in Maastricht"
+                  width={1373}
+                  height={768}
+                  fetchpriority="high"
+                  decoding="async"
                   className="hero-image h-[500px] w-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.035] sm:h-[600px]"
                 />
 
