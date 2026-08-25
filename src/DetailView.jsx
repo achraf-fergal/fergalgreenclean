@@ -71,59 +71,91 @@ const goToContact = (e) => {
     const sections = Array.from(content.querySelectorAll(".h-section"));
     const sectionEntered = new Set();
 
-    const revealSection = (sec) => {
-      if (sectionEntered.has(sec)) return;
-      sectionEntered.add(sec);
+const revealSection = (sec) => {
+  if (!sec) return;
+  if (sectionEntered.has(sec)) return;
 
-      if (!sec.classList.contains("h-section-full")) {
-        gsap.fromTo(
-          sec,
-          { opacity: 0, y: 28, filter: "blur(6px)", scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            scale: 1,
-            duration: 0.85,
-            ease: "power3.out",
-          },
-        );
-      } else {
-        gsap.set(sec, { opacity: 1 });
+  sectionEntered.add(sec);
+
+  const items = Array.from(sec.querySelectorAll(".h-item"));
+
+  // على الهاتف: لا نترك أي عنصر مخفيًا بسبب GSAP
+  if (isMobile) {
+    gsap.killTweensOf(sec);
+    gsap.set(sec, {
+      opacity: 1,
+      visibility: "visible",
+      clearProps: "transform,filter",
+    });
+
+    items.forEach((el) => {
+      gsap.killTweensOf(el);
+
+      gsap.set(el, {
+        opacity: 1,
+        visibility: "visible",
+        y: 0,
+        x: 0,
+        clearProps: "transform,filter",
+      });
+    });
+
+    return;
+  }
+
+  // Desktop animation
+  if (!sec.classList.contains("h-section-full")) {
+    gsap.fromTo(
+      sec,
+      {
+        opacity: 0,
+        y: 28,
+        filter: "blur(6px)",
+        scale: 0.97,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        scale: 1,
+        duration: 0.85,
+        ease: "power3.out",
       }
-      const items = Array.from(sec.querySelectorAll(".h-item"));
+    );
+  } else {
+    gsap.set(sec, { opacity: 1 });
+  }
 
-      items.forEach((el) => {
-        gsap.killTweensOf(el);
+  items.forEach((el) => {
+    gsap.killTweensOf(el);
 
-        gsap.set(el, {
-          clearProps: "transform,filter",
-          opacity: 1,
-          visibility: "visible",
-        });
-      });
+    gsap.set(el, {
+      clearProps: "transform,filter",
+      opacity: 1,
+      visibility: "visible",
+    });
+  });
 
-      items.forEach((el, i) => {
-        gsap.fromTo(
-          el,
-          {
-            opacity: 0,
-            y: 46,
-            filter: "blur(3px)",
-          },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            duration: 0.72,
-            ease: "power3.out",
-            delay: i * 0.08,
-            overwrite: "auto",
-          },
-        );
-      });
-    };
-
+  items.forEach((el, i) => {
+    gsap.fromTo(
+      el,
+      {
+        opacity: 0,
+        y: 46,
+        filter: "blur(3px)",
+      },
+      {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.72,
+        ease: "power3.out",
+        delay: i * 0.08,
+        overwrite: "auto",
+      }
+    );
+  });
+};
     if (sections[0]) revealSection(sections[0]);
 
     const titleEl = overlay.querySelector(".split-text-target");
@@ -526,7 +558,7 @@ const goToContact = (e) => {
             >
 <img
   id={`detail-img-${project.id}`}
-  src={project.image8}
+  src={project.leftImage.src}
   alt={`${project.name} in ${project.location}`}
   data-cursor="grow"
   className="block w-full h-full"
@@ -547,21 +579,21 @@ const goToContact = (e) => {
             className="absolute bottom-0 left-0 overflow-hidden"
             style={{ paddingLeft: "4%", paddingBottom: "1%", lineHeight: 0.82 }}
           >
-            <h2
-              className="split-text-target font-black leading-[0.82] select-none text-black/20"
-              style={{
-                fontFamily: '"Inter","Helvetica Neue",sans-serif',
-                fontSize: isMobile
-                  ? "clamp(40px,13vw,72px)"
-                  : "clamp(72px,10.5vw,148px)",
-                letterSpacing: "-0.045em",
-              }}
-            >
-              {project.name}
-            </h2>
+          <h2
+  className="split-text-target font-black leading-[0.88] select-none text-black/20"
+  style={{
+    fontFamily: '"Inter","Helvetica Neue",sans-serif',
+    fontSize: isMobile
+      ? "clamp(32px,10vw,58px)"
+      : "clamp(54px,6.8vw,105px)",
+    letterSpacing: "-0.045em",
+  }}
+>
+  {project.name}
+</h2>
           </div>
 
-          <div className="hero-scroll-hint absolute right-4 sm:right-6 md:right-8 bottom-6 sm:bottom-8 md:bottom-10 flex-col items-center gap-2 text-black/30 hidden sm:flex">
+          <div className="hero-scroll-hint absolute right-4 sm:right-6 md:right-8 bottom-6 sm:bottom-8 md:bottom-10 flex-col items-center gap-2 text-black/30  sm:flex">
             <span className="text-[0.6rem] tracking-[0.2em] uppercase font-sans">
               Scroll
             </span>
@@ -587,7 +619,7 @@ const goToContact = (e) => {
         >
           <div
             className="absolute inset-0 w-full h-full"
-            data-lazy-src={project.rightImage}
+            data-lazy-src={project.rightImage.src}
             style={{ backgroundSize: "cover", backgroundPosition: "center" }}
           />
           <div
@@ -665,18 +697,30 @@ const goToContact = (e) => {
             </div>
           </div>
 
-          {!isMobile && (
-            <div
-              className="absolute bottom-14 right-14 flex flex-col gap-6"
-              style={{ minWidth: "160px" }}
-            >
+        
+<div
+  className={
+    isMobile
+      ? "relative flex flex-row flex-wrap gap-5 mt-5"
+      : "absolute bottom-14 right-14 flex flex-col gap-6"
+  }
+  style={{
+    minWidth: isMobile ? "100%" : "160px",
+  }}
+>
               {[
                 [project.year, "Year"],
                 [project.location, "Location"],
                 ["4.9★", "Score"],
               ].map(([val, lbl]) => (
-                <div key={lbl} className="h-item" style={{ opacity: 0 }}>
-                  <div className="font-sans font-bold text-xl md:text-2xl leading-none text-white">
+<div
+  key={lbl}
+  className="h-item"
+  style={{
+    opacity: isMobile ? 1 : 0,
+    minWidth: isMobile ? "80px" : undefined,
+  }}
+>                  <div className="font-sans font-bold text-xl md:text-2xl leading-none text-white">
                     {val}
                   </div>
                   <div className="font-sans text-[0.6rem] tracking-[0.18em] uppercase text-white/35 mt-1">
@@ -685,9 +729,9 @@ const goToContact = (e) => {
                 </div>
               ))}
             </div>
-          )}
+        
 
-          {!isMobile && (
+         
             <div
               className="h-item absolute"
               style={{
@@ -704,7 +748,7 @@ const goToContact = (e) => {
             >
               <div
                 className="w-full h-full"
-                data-lazy-src={project.image5}
+                data-lazy-src={project.image5.src}
                 style={{
                   backgroundSize: "110% 100%",
                   backgroundPosition: "center",
@@ -723,218 +767,532 @@ const goToContact = (e) => {
                 </p>
               </div>
             </div>
-          )}
+       
         </div>
 
-        {/* S3 — Image mosaic */}
-        <div
+{/* S3 — Image mosaic */}
 
-  className="hidden md:block h-section h-section-full flex-shrink-0 relative overflow-hidden"          style={{
-            width: "100vw",
-            minHeight: isMobile ? "80svh" : undefined,
-            height: isMobile ? undefined : "100vh",
-            opacity: isMobile ? 1 : 0,
-            background: "#111",
+
+{/* S3 — Image mosaic */}
+<div
+ className="hidden md:block h-section h-section-full flex-shrink-0 relative"
+  style={{
+    width: "100vw",
+    minHeight: isMobile ? "100svh" : undefined,
+    height: isMobile ? undefined : "100vh",
+    opacity: isMobile ? 1 : 0,
+    background: "#111",
+    overflow: isMobile ? "visible" : "hidden",
+  }}
+>
+  <div
+    className="relative w-full flex flex-col gap-[3px] md:absolute md:inset-0 md:flex-row"
+  >
+    {/* =========================
+        الصورة الكبيرة (image3)
+    ========================= */}
+    <div
+      className="h-item relative overflow-hidden group"
+      style={{
+        opacity: 0,
+        flex: isMobile ? "0 0 auto" : "0 0 38%",
+        width: isMobile ? "100%" : undefined,
+        height: isMobile ? undefined : "100%",
+        minHeight: isMobile ? "42vh" : undefined,
+      }}
+    >
+      <div
+        className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]"
+        data-lazy-src={project.image3.src}
+        style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 45%, transparent 75%)",
+        }}
+      />
+      <div className="absolute left-0 right-0 bottom-0 p-5 md:p-7">
+        <span className="block mb-2 text-[0.5rem] tracking-[0.25em] uppercase text-white/50">
+          {project.name}
+        </span>
+        <h3 className="max-w-[90%] text-[1rem] md:text-[1.45rem] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+          {project.image3.title}
+        </h3>
+        <div className="mt-3 h-[2px] w-8" style={{ background: project.color }} />
+      </div>
+    </div>
+
+    {/* =========================
+        العمود الثاني (image6 + image7)
+    ========================= */}
+    <div
+      className="flex flex-col gap-[3px]"
+      style={{
+        flex: isMobile ? "0 0 auto" : "0 0 22%",
+        width: isMobile ? "100%" : undefined,
+      }}
+    >
+      {/* IMAGE 6 */}
+      <div
+        className="h-item relative overflow-hidden group"
+        style={{
+          opacity: 0,
+          flex: isMobile ? "0 0 auto" : 1,
+          minHeight: isMobile ? "220px" : undefined,
+        }}
+      >
+        <div
+          className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]"
+          data-lazy-src={project.image6.src}
+          style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 70%)" }}
+        />
+        <div className="absolute left-0 right-0 bottom-0 p-4 md:p-5">
+          <span className="block mb-1.5 text-[0.46rem] tracking-[0.22em] uppercase text-white/45">
+            {project.name}
+          </span>
+          <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
+            {project.image6.title}
+          </h3>
+          <div className="mt-2 h-px w-6" style={{ background: project.color }} />
+        </div>
+      </div>
+
+      {/* IMAGE 7 */}
+      <div
+        className="h-item relative overflow-hidden group"
+        style={{
+          opacity: 0,
+          flex: isMobile ? "0 0 auto" : 1,
+          minHeight: isMobile ? "220px" : undefined,
+        }}
+      >
+        <div
+          className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]"
+          data-lazy-src={project.image7.src}
+          style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: project.color, opacity: 0.12, mixBlendMode: "color" }}
+        />
+        <div className="absolute left-0 right-0 bottom-0 p-4 md:p-5">
+          <span className="block mb-1.5 text-[0.46rem] tracking-[0.22em] uppercase text-white/45">
+            {project.name}
+          </span>
+          <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
+            {project.image8.title}
+          </h3>
+          <div className="mt-2 h-px w-6" style={{ background: project.color }} />
+        </div>
+      </div>
+    </div>
+
+    {project.name !== "Tuinonderhoud" && (
+      <>
+        {/* =========================
+            العمود الثالث (extra column — image6 + image4)
+        ========================= */}
+        <div
+          className="flex flex-col gap-[3px]"
+          style={{
+            flex: isMobile ? "0 0 auto" : "0 0 20%",
+            width: isMobile ? "100%" : undefined,
           }}
         >
-          {isMobile ? (
-            <div className="flex flex-col h-full">
-              <div
-                className="h-item relative overflow-hidden flex-1"
-                style={{ opacity: 0 }}
-              >
-                <div
-                  className="w-full h-full"
-                  data-lazy-src={project.image3}
-                  style={{
-                    backgroundSize: "100% 100%",
-                    backgroundPosition: "center",
-                    objectPosition: "center top",
-                  }}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 50%)",
-                  }}
-                />
-              </div>
-              <div
-                className="h-item relative overflow-hidden flex-1"
-                style={{ opacity: 0 }}
-              >
-                <div
-                  className="w-full h-full"
-                  data-lazy-src={project.image6}
-                  style={{
-                    backgroundSize: "100% 100%",
-                    backgroundPosition: "center",
-                    objectPosition: "center 20%",
-                  }}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: project.color,
-                    opacity: 0.15,
-                    mixBlendMode: "color",
-                  }}
-                />
-                <div className="absolute bottom-6 left-6">
-                  <p className="font-sans font-bold text-[0.65rem] tracking-[0.2em] uppercase text-white/50">
-                    {project.category}
-                  </p>
-                  <p
-                    className="font-sans font-light text-xs sm:text-[0.75rem] mt-1 italic"
-                    style={{ color: project.color }}
-                  >
-                    {project.tagline}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <div className="absolute inset-0 flex gap-[3px]">
-              <div
-                className="h-item relative overflow-hidden"
-                style={{ opacity: 0, flex: "0 0 38%", height: "100%" }}
-              >
-                <div
-                  className="w-full h-full"
-                  data-lazy-src={project.image3}
-                  style={{
-                    backgroundSize: "100% 100%",
-                    backgroundPosition: "center",
-                    objectPosition: "center top",
-                  }}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%)",
-                  }}
-                />
-              </div>
-              <div
-                className="flex flex-col gap-[3px]"
-                style={{ flex: "0 0 32%" }}
-              >
-                <div
-                  className="h-item relative overflow-hidden"
-                  style={{ opacity: 0, flex: 1 }}
-                >
-                  <div
-                    className="w-full h-full"
-                    data-lazy-src={project.image6}
-                    style={{
-                      backgroundSize: "100% 100%",
-                      backgroundPosition: "center",
-                      objectPosition: "center 20%",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 60%)",
-                    }}
-                  />
-                </div>
-                <div
-                  className="h-item relative overflow-hidden"
-                  style={{ opacity: 0, flex: 1 }}
-                >
-                  <div
-                    className="w-full h-full"
-                    data-lazy-src={project.image7}
-                    style={{
-                      backgroundSize: "100% 100%",
-                      backgroundPosition: "center",
-                      objectPosition: "center bottom",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background: project.color,
-                      opacity: 0.18,
-                      mixBlendMode: "color",
-                    }}
-                  />
-                </div>
-              </div>
-              <div
-                className="flex flex-col gap-[3px]"
-                style={{ flex: "0 0 30%" }}
-              >
-                <div
-                  className="h-item relative overflow-hidden"
-                  style={{ opacity: 0, flex: "0 0 62%" }}
-                >
-                  <div
-                    className="w-full h-full"
-                    data-lazy-src={project.image4}
-                    style={{
-                      backgroundSize: "100% 100%",
-                      backgroundPosition: "center",
-                      objectPosition: "80% center",
-                    }}
-                  />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(135deg, rgba(0,0,0,0.4) 0%, transparent 60%)",
-                    }}
-                  />
-                  <div className="absolute top-5 left-5 font-sans text-[0.58rem] tracking-[0.22em] uppercase text-white/45">
-                    {project.category}
-                  </div>
-                </div>
-                <div
-                  className="h-item relative overflow-hidden"
-                  style={{ opacity: 0, flex: 1, background: project.color }}
-                >
-                  <div className="absolute inset-0 flex flex-col justify-end p-6">
-                    <p className="font-sans font-bold text-[0.7rem] tracking-[0.08em] uppercase text-black/55">
-                      {project.location}
-                    </p>
-                    <p className="font-sans font-light text-[0.75rem] text-black/40 mt-1 italic">
-                      {project.tagline}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {!isMobile && (
+          <div
+            className="h-item relative overflow-hidden group"
+            style={{
+              opacity: 0,
+              flex: isMobile ? "0 0 auto" : 1,
+              minHeight: isMobile ? "220px" : undefined,
+            }}
+          >
             <div
-              className="h-item absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4"
-              style={{ opacity: isMobile ? 1 : 0 }}
-            >
-              <div
-                style={{
-                  width: "32px",
-                  height: "1px",
-                  background: "rgba(255,255,255,0.3)",
-                }}
-              />
-              <span className="font-sans text-[0.6rem] tracking-[0.28em] uppercase text-white/40">
-                {project.category}
+              className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]"
+              data-lazy-src={project.image8.src}
+              style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 70%)" }}
+            />
+            <div className="absolute left-0 right-0 bottom-0 p-4 md:p-5">
+              <span className="block mb-1.5 text-[0.46rem] tracking-[0.22em] uppercase text-white/45">
+                {project.name}
               </span>
-              <div
-                style={{
-                  width: "32px",
-                  height: "1px",
-                  background: "rgba(255,255,255,0.3)",
-                }}
-              />
+              <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
+                {project.image8.title}
+              </h3>
+              <div className="mt-2 h-px w-6" style={{ background: project.color }} />
             </div>
-          )}
+          </div>
+
+          <div
+            className="h-item relative overflow-hidden group"
+            style={{
+              opacity: 0,
+              flex: isMobile ? "0 0 auto" : 1,
+              minHeight: isMobile ? "220px" : undefined,
+            }}
+          >
+            <div
+              className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]"
+              data-lazy-src={project.image4.src}
+              style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 70%)" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: project.color, opacity: 0.12, mixBlendMode: "color" }}
+            />
+            <div className="absolute left-0 right-0 bottom-0 p-4 md:p-5">
+              <span className="block mb-1.5 text-[0.46rem] tracking-[0.22em] uppercase text-white/45">
+                {project.name}
+              </span>
+              <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
+                {project.image7.title}
+              </h3>
+              <div className="mt-2 h-px w-6" style={{ background: project.color }} />
+            </div>
+          </div>
         </div>
+
+        {/* =========================
+            العمود الرابع (image4 main + colored block)
+        ========================= */}
+        <div
+          className="flex flex-col gap-[3px]"
+          style={{
+            flex: isMobile ? "0 0 auto" : "0 0 20%",
+            width: isMobile ? "100%" : undefined,
+          }}
+        >
+          <div
+            className="h-item relative overflow-hidden group"
+            style={{
+              opacity: 0,
+              flex: isMobile ? "0 0 auto" : "0 0 62%",
+              minHeight: isMobile ? "220px" : undefined,
+            }}
+          >
+            <div
+              className="absolute inset-0 transition-transform duration-700 group-hover:scale-[1.04]"
+              data-lazy-src={project.image9.src}
+              style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 70%)" }}
+            />
+            <div className="absolute left-0 right-0 bottom-0 p-4 md:p-5">
+              <span className="block mb-1.5 text-[0.46rem] tracking-[0.22em] uppercase text-white/45">
+                {project.name}
+              </span>
+              <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
+                {project.image9.title}
+              </h3>
+              <div className="mt-2 h-px w-6" style={{ background: project.color }} />
+            </div>
+          </div>
+
+          <div
+            className="h-item relative overflow-hidden"
+            style={{
+              opacity: 0,
+              flex: isMobile ? "0 0 auto" : 1,
+              minHeight: isMobile ? "140px" : undefined,
+              background: project.color,
+            }}
+          >
+            <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
+              <p className="font-sans font-bold text-[0.65rem] md:text-[0.7rem] tracking-[0.08em] uppercase text-black/55">
+                {project.location}
+              </p>
+              <p className="font-sans font-light text-[0.7rem] md:text-[0.75rem] text-black/40 mt-1 italic">
+                {project.tagline}
+              </p>
+            </div>
+          </div>
+        </div>
+      </>
+    )}
+  </div>
+
+  {/* اسم القسم أسفل الـ mosaic */}
+  <div
+    className="h-item flex items-center gap-4 justify-center"
+    style={{
+      opacity: isMobile ? 1 : 0,
+      position: isMobile ? "relative" : "absolute",
+      bottom: isMobile ? undefined : "2rem",
+      left: isMobile ? undefined : "50%",
+      transform: isMobile ? undefined : "translateX(-50%)",
+      padding: isMobile ? "20px 0 32px" : undefined,
+    }}
+  >
+    <div style={{ width: "32px", height: "1px", background: "rgba(255,255,255,0.3)" }} />
+    <span className="font-sans text-[0.6rem] tracking-[0.28em] uppercase text-white/40">
+      {project.name}
+    </span>
+    <div style={{ width: "32px", height: "1px", background: "rgba(255,255,255,0.3)" }} />
+  </div>
+</div>
+{/* ============================================================
+  S3-MOBILE — نسخة احترافية للهاتف فقط (بطاقات عمودية)
+  تظهر فقط على الشاشات الصغيرة، لا تؤثر على تصميم الديسكتوب
+ ============================================================ */}
+<div className="block md:hidden h-section h-section-full flex-shrink-0 relative bg-[#111] px-3 py-6">
+  <div className="flex flex-col gap-2.5">
+  {/* عنوان القسم */}
+  <div className="h-item flex items-center gap-3 mb-1" style={{ opacity: 0 }}>
+    <div style={{ width: "24px", height: "1px", background: project.color }} />
+    <span
+      className="font-sans text-[0.6rem] tracking-[0.24em] uppercase"
+      style={{ color: project.color }}
+    >
+      Gallery
+    </span>
+  </div>
+
+  {/* البطاقة الرئيسية — image3 */}
+  <div
+    className="h-item relative overflow-hidden rounded-2xl"
+    style={{
+      opacity: 0,
+      aspectRatio: "4 / 3",
+      boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+      border: "1px solid rgba(255,255,255,0.06)",
+    }}
+  >
+    <div
+      className="absolute inset-0"
+      data-lazy-src={project.image3.src}
+      style={{ backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+    />
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.15) 55%, transparent 80%)",
+      }}
+    />
+    <div className="absolute left-0 right-0 bottom-0 p-4">
+      <span className="block mb-1.5 text-[0.5rem] tracking-[0.24em] uppercase text-white/50">
+        {project.name}
+      </span>
+      <h3 className="text-[1.05rem] font-medium leading-[1.15] tracking-[-0.02em] text-white">
+        {project.image3.title}
+      </h3>
+      <div className="mt-2.5 h-[2px] w-8" style={{ background: project.color }} />
+    </div>
+  </div>
+
+  {/* صف من بطاقتين — image6 + image7 */}
+  <div className="grid grid-cols-2 gap-2.5">
+    <div
+      className="h-item relative overflow-hidden rounded-2xl"
+      style={{
+        opacity: 0,
+        aspectRatio: "3 / 4",
+        boxShadow: "0 16px 36px rgba(0,0,0,0.45)",
+        border: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      <div
+        className="absolute inset-0"
+        data-lazy-src={project.image6.src}
+        style={{ backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 65%)" }}
+      />
+      <div className="absolute left-0 right-0 bottom-0 p-3">
+        <span className="block mb-1 text-[0.42rem] tracking-[0.2em] uppercase text-white/45">
+          {project.name}
+        </span>
+        <h3 className="text-[0.75rem] font-medium leading-[1.2] text-white">
+          {project.image6.title}
+        </h3>
+        <div className="mt-1.5 h-px w-5" style={{ background: project.color }} />
+      </div>
+    </div>
+
+    <div
+      className="h-item relative overflow-hidden rounded-2xl"
+      style={{
+        opacity: 0,
+        aspectRatio: "3 / 4",
+        boxShadow: "0 16px 36px rgba(0,0,0,0.45)",
+        border: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      <div
+        className="absolute inset-0"
+        data-lazy-src={project.image7.src}
+        style={{ backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 65%)" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: project.color, opacity: 0.12, mixBlendMode: "color" }}
+      />
+      <div className="absolute left-0 right-0 bottom-0 p-3">
+        <span className="block mb-1 text-[0.42rem] tracking-[0.2em] uppercase text-white/45">
+          {project.name}
+        </span>
+        <h3 className="text-[0.75rem] font-medium leading-[1.2] text-white">
+          {project.image8.title}
+        </h3>
+        <div className="mt-1.5 h-px w-5" style={{ background: project.color }} />
+      </div>
+    </div>
+  </div>
+
+  {/* العمود الإضافي — يظهر فقط إذا لم يكن Tuinonderhoud */}
+{project.name !== "Tuinonderhoud" && (
+  <>
+    <div className="grid grid-cols-2 gap-2.5">
+      {/* image8 — بدل image6 */}
+      <div
+        className="h-item relative overflow-hidden rounded-2xl"
+        style={{
+          opacity: 0,
+          aspectRatio: "3 / 4",
+          boxShadow: "0 16px 36px rgba(0,0,0,0.45)",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <div
+          className="absolute inset-0"
+          data-lazy-src={project.image8.src}
+          style={{ backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 65%)" }}
+        />
+        <div className="absolute left-0 right-0 bottom-0 p-3">
+          <span className="block mb-1 text-[0.42rem] tracking-[0.2em] uppercase text-white/45">
+            {project.name}
+          </span>
+          <h3 className="text-[0.75rem] font-medium leading-[1.2] text-white">
+            {project.image8.title}
+          </h3>
+          <div className="mt-1.5 h-px w-5" style={{ background: project.color }} />
+        </div>
+      </div>
+
+      {/* image4 (src) + image7 (title) — كما في الديسكتوب */}
+      <div
+        className="h-item relative overflow-hidden rounded-2xl"
+        style={{
+          opacity: 0,
+          aspectRatio: "3 / 4",
+          boxShadow: "0 16px 36px rgba(0,0,0,0.45)",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        <div
+          className="absolute inset-0"
+          data-lazy-src={project.image4.src}
+          style={{ backgroundSize: "100% 100%", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 65%)" }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{ background: project.color, opacity: 0.12, mixBlendMode: "color" }}
+        />
+        <div className="absolute left-0 right-0 bottom-0 p-3">
+          <span className="block mb-1 text-[0.42rem] tracking-[0.2em] uppercase text-white/45">
+            {project.name}
+          </span>
+          <h3 className="text-[0.75rem] font-medium leading-[1.2] text-white">
+            {project.image7.title}
+          </h3>
+          <div className="mt-1.5 h-px w-5" style={{ background: project.color }} />
+        </div>
+      </div>
+    </div>
+
+    {/* الكرت الكبير — image9 بدل image4 */}
+    <div
+      className="h-item relative overflow-hidden rounded-2xl"
+      style={{
+        opacity: 0,
+        aspectRatio: "4 / 3",
+        boxShadow: "0 20px 50px rgba(0,0,0,0.5)",
+        border: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
+      <div
+        className="absolute inset-0"
+        data-lazy-src={project.image9.src}
+        style={{ backgroundSize: "cover", backgroundPosition: "center" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 65%)" }}
+      />
+      <div className="absolute left-0 right-0 bottom-0 p-4">
+        <span className="block mb-1.5 text-[0.5rem] tracking-[0.24em] uppercase text-white/50">
+          {project.name}
+        </span>
+        <h3 className="text-[0.95rem] font-medium leading-[1.2] text-white">
+          {project.image9.title}
+        </h3>
+        <div className="mt-2 h-px w-6" style={{ background: project.color }} />
+      </div>
+    </div>
+
+    {/* البطاقة الملونة — بدون تغيير */}
+    <div
+      className="h-item relative overflow-hidden rounded-2xl p-5"
+      style={{
+        opacity: 0,
+        background: project.color,
+        boxShadow: "0 16px 36px rgba(0,0,0,0.35)",
+      }}
+    >
+      <p className="font-sans font-bold text-[0.7rem] tracking-[0.08em] uppercase text-black/55">
+        {project.location}
+      </p>
+      <p className="font-sans font-light text-[0.75rem] text-black/40 mt-1 italic">
+        {project.tagline}
+      </p>
+    </div>
+  </>
+)}
+
+  {/* اسم القسم أسفل البطاقات */}
+  <div className="h-item flex items-center gap-4 justify-center mt-4" style={{ opacity: 0 }}>
+    <div style={{ width: "28px", height: "1px", background: "rgba(255,255,255,0.3)" }} />
+    <span className="font-sans text-[0.58rem] tracking-[0.28em] uppercase text-white/40">
+      {project.name}
+    </span>
+    <div style={{ width: "28px", height: "1px", background: "rgba(255,255,255,0.3)" }} />
+  </div>
+</div>
+</div>
 
         {/* S4 — Process text + side images */}
         <div
@@ -1026,33 +1384,8 @@ const goToContact = (e) => {
             {isMobile ? (
               <div
                 className="h-item relative overflow-hidden"
-                style={{
-                  opacity: isMobile ? 1 : 0,
-                  width: "100%",
-                  aspectRatio: "16/9",
-                  flexShrink: 0,
-                }}
               >
-                <div
-                  className="w-full h-full"
-                  data-lazy-src={project.image6}
-                  style={{
-                    backgroundSize: "100% 100%",
-                    backgroundPosition: "center",
-                    objectPosition: "center 30%",
-                  }}
-                />
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: `linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%)`,
-                  }}
-                />
-                <div className="absolute bottom-4 left-4">
-                  <p className="font-sans text-[0.55rem] tracking-[0.2em] uppercase text-white/40">
-                    {project.name} · {project.year}
-                  </p>
-                </div>
+
               </div>
             ) : (
               <div
@@ -1075,7 +1408,7 @@ const goToContact = (e) => {
                 >
                   <div
                     className="w-full h-full"
-                    data-lazy-src={project.image7}
+                    data-lazy-src={project.image5.src}
                     style={{
                       backgroundSize: "100% 100%",
                       backgroundPosition: "center",
@@ -1105,7 +1438,7 @@ const goToContact = (e) => {
                 >
                   <div
                     className="w-full h-full"
-                    data-lazy-src={project.leftImage}
+                    data-lazy-src={project.leftImage.src}
                     style={{
                       backgroundSize: "100% 100%",
                       backgroundPosition: "center",
@@ -1124,6 +1457,14 @@ const goToContact = (e) => {
                     </p>
                   </div>
                 </div>
+              
+              
+              
+              
+              
+              
+              
+              
               </div>
             )}
           </div>
@@ -1142,7 +1483,7 @@ const goToContact = (e) => {
         >
           <div
             className="absolute inset-0 w-full h-full"
-            data-lazy-src={project.image4}
+            data-lazy-src={project.image4.src}
             style={{
               backgroundSize: "100% 100%",
               backgroundPosition: "center",
@@ -1235,7 +1576,7 @@ const goToContact = (e) => {
           >
             Results
           </h4>
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="grid grid-cols-2 gap-2.5">
             {project.kpis.map(([num, label]) => (
               <div
                 key={label}

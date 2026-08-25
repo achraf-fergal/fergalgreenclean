@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+
 import {
   ArrowDownRight,
   ArrowRight,
@@ -29,42 +30,73 @@ import DetailView from "./DetailView"; // adjust path to where DetailView.jsx li
 
 // High-resolution Unsplash URLs with professional query parameters
 const getServiceDetails = () => ({
-  schoonmaak: {
-    id: "schoonmaak",
+  schoonmaakWoningen: {
+    id: "schoonmaak-woningen",
     number: "01",
-    name: "Schoonmaak",
-    category: "Professionele reiniging",
+    name: "Schoonmaak woningen",
+    category: "Professionele woningreiniging",
     location: "Maastricht",
     year: "2026",
     color: "#1677ff",
 
-    tagline: "Een fris, verzorgd resultaat — elke keer opnieuw.",
+    tagline: "Een schoon en verzorgd huis, elke keer opnieuw.",
 
     description:
-      "Van woningen tot restaurants: een grondige, betrouwbare schoonmaak die past bij uw ruimte en ritme.",
+      "Grondige en betrouwbare schoonmaak voor woningen, afgestemd op uw ruimte, wensen en ritme.",
 
-    technologies: ["Woningen", "Kantoren", "Horeca"],
-
+    technologies: [
+      "Woonhuizen",
+      "Appartementen",
+      "Periodieke schoonmaak",
+    ],
     images: [
-      "/schoonmaak/Gemini_Generated_Image_1vzbgu1vzbgu1vzb.jpg",
-      "/schoonmaak/Gemini_Generated_Image_39p99e39p99e39p9.jpg",
-      "/schoonmaak/Gemini_Generated_Image_6xhnas6xhnas6xhn.jpg",
-      "/schoonmaak/Gemini_Generated_Image_aswtedaswtedaswt.jpg",
-      "/schoonmaak/Gemini_Generated_Image_k1on6zk1on6zk1on.jpg",
-      "/schoonmaak/Gemini_Generated_Image_ql7amyql7amyql7a.jpg",
-      "/schoonmaak/Gemini_Generated_Image_vb5t7qvb5t7qvb5t.jpg",
-      '/schoonmaak/image.png',
+      {
+        src: "/schoonmaak/dbfcccd57bccd8e8f0809a49e288d43a.jpg",
+        title: "Woning schoonmaak",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/af/8e/ea/af8eea5349adca240c9cd70974571d2e.jpg",
+        title: "Interieur reiniging",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/9f/de/fe/9fdefece61901cc2f8b3beba090c88ad.jpg",
+        title: "Dieptereiniging",
+      },
+      {
+        src: "https://i.pinimg.com/736x/96/ee/a0/96eea0aef385928fccf4e97b6e598a9c.jpg",
+        title: "Meubel reiniging",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
+        title: "Interieur onderhoud",
+      },
+      {
+        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.jpg",
+        title: "Trapreiniging",
+      },
+      {
+        src: "/schoonmaak/image.png",
+        title: "Keuken diepereiniging",
+      },
+      {
+        src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.jpg",
+        title: "Vloeren dweilen",
+      },
+      {
+        src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.jpg",
+        title: "Oppervlakken afstoffen",
+      },
     ],
 
-    quote: "Een schone ruimte is het begin van een goede dag.",
+    quote: "Een schoon huis geeft ruimte, rust en een goed gevoel.",
 
     processHeading: "Onze aanpak",
 
     processP1:
-      "We starten met een kort gesprek over uw ruimte en wensen, zodat de aanpak precies aansluit.",
+      "We bespreken uw woning en wensen, zodat we precies weten welke ruimtes en taken extra aandacht nodig hebben.",
 
     processP2:
-      "Daarna komen we op vaste momenten langs en houden we kort contact over hoe het gaat.",
+      "Daarna zorgen we op vaste of afgesproken momenten voor een grondige en consistente schoonmaak.",
 
     kpis: [
       ["100+", "Tevreden klanten"],
@@ -74,9 +106,163 @@ const getServiceDetails = () => ({
     ],
   },
 
-  tuinonderhoud: {
-    id: "tuinonderhoud",
+  schoonmaakKantoren: {
+    id: "schoonmaak-kantoren",
     number: "02",
+    name: "Schoonmaak kantoren",
+    category: "Professionele kantoorreiniging",
+    location: "Maastricht",
+    year: "2026",
+    color: "#1677ff",
+
+    tagline: "Een frisse werkplek waarin iedereen prettig werkt.",
+
+    description:
+      "Professionele schoonmaak voor kantoren en werkruimtes, met aandacht voor hygiëne, uitstraling en continuïteit.",
+
+    technologies: [
+      "Kantoren",
+      "Werkruimtes",
+      "Periodiek onderhoud",
+    ],
+
+    images: [
+      {
+        src: "/schoonmaak/07ddd52ab7faf8e5d75bbb7cef229ed7.jpg",
+        title: "Kantoor schoonmaak",
+      },
+      {
+        src: "https://i.pinimg.com/736x/bc/10/0c/bc100cd4708abb64b2496a279aec905d.jpg",
+        title: "Werkplek reinigen",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/d8/9e/ea/d89eeafa2a82b50f05ae2394fbd70797.jpg",
+        title: "Bureaus reinigen",
+      },
+      {
+        src: "https://i.pinimg.com/236x/42/d3/52/42d352c3cbe328215062aefd5d29e380.jpg",
+        title: "Kantoor onderhoud",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/69/36/64/693664823d4efe3330e35cba838f4f14.jpg",
+        title: "Sanitaire reiniging",
+      },
+      {
+        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.jpg",
+        title: "Trapreiniging",
+      },
+      {
+        src: "https://i.pinimg.com/736x/96/ee/a0/96eea0aef385928fccf4e97b6e598a9c.jpg",
+        title: "Oppervlakken afstoffen",
+      },
+      {
+        src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.jpg",
+        title: "Meubels afstoffen",
+      },
+    ],
+
+    quote: "Een verzorgde werkplek werkt beter.",
+
+    processHeading: "Onze aanpak",
+
+    processP1:
+      "We bekijken uw kantoor en bespreken de gewenste frequentie, ruimtes en werkzaamheden.",
+
+    processP2:
+      "Vervolgens zorgen we volgens een vaste planning voor een schone, frisse en professionele werkomgeving.",
+
+    kpis: [
+      ["100+", "Tevreden klanten"],
+      ["4.9★", "Score"],
+      ["7", "Dagen per week"],
+      ["0", "Verrassingen"],
+    ],
+  },
+
+  schoonmaakHoreca: {
+    id: "schoonmaak-horeca",
+    number: "03",
+    name: "Schoonmaak restaurants/cafés",
+    category: "Professionele reiniging voor restaurants & cafés",
+    location: "Maastricht",
+    year: "2026",
+    color: "#1677ff",
+
+    tagline:
+      "Een frisse, hygiënische en gastvrije omgeving voor uw gasten.",
+
+    description:
+      "Professionele schoonmaak voor restaurants, cafés en andere horecazaken. Van eetruimtes en terrassen tot vloeren, sanitaire ruimtes en algemene dagelijkse hygiëne.",
+
+    technologies: [
+      "Restaurants",
+      "Cafés",
+      "Horeca",
+      "Eetruimtes",
+      "Periodieke schoonmaak",
+    ],
+
+    images: [
+      {
+        src: "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.jpg",
+        title: "Restaurant schoonmaak",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/af/8e/ea/af8eea5349adca240c9cd70974571d2e.jpg",
+        title: "Horeca schoonmaak",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/9f/de/fe/9fdefece61901cc2f8b3beba090c88ad.jpg",
+        title: "Dieptereiniging",
+      },
+      {
+        src: "https://i.pinimg.com/736x/96/ee/a0/96eea0aef385928fccf4e97b6e598a9c.jpg",
+        title: "Oppervlakken reinigen",
+      },
+      {
+        src: "https://i.pinimg.com/1200x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
+        title: "Eetruimte reinigen",
+      },
+      {
+        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.jpg",
+        title: "Trapreiniging",
+      },
+      {
+        src: "/schoonmaak/image.png",
+        title: "Keuken diepereiniging",
+      },
+      {
+        src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.jpg",
+        title: "Vloeren dweilen",
+      },
+      {
+        src: "https://i.pinimg.com/236x/5e/f8/55/5ef855dc783ee3c36b025cb37255fef9.jpg",
+        title: "Tafels reinigen",
+      },
+    ],
+
+    quote:
+      "Een schone horecazaak zorgt voor vertrouwen, comfort en een goede eerste indruk.",
+
+    processHeading: "Onze aanpak",
+
+    processP1:
+      "We bespreken uw restaurant, café of horecazaak en bepalen samen welke ruimtes en werkzaamheden de meeste aandacht nodig hebben.",
+
+    processP2:
+      "Daarna zorgen we met een vaste en professionele aanpak voor een frisse, hygiënische en gastvrije omgeving voor medewerkers en gasten.",
+
+    kpis: [
+      ["100+", "Tevreden klanten"],
+      ["4.9★", "Score"],
+      ["7", "Dagen per week"],
+      ["0", "Verrassingen"],
+    ],
+  },
+
+ tuinonderhoud: {
+    id: "tuinonderhoud",
+    number: "04",
     name: "Tuinonderhoud",
     category: "Onderhoud & verzorging",
     location: "Maastricht",
@@ -88,22 +274,46 @@ const getServiceDetails = () => ({
     description:
       "Van een nette voortuin tot een groene buitenplek: onderhoud met zorg en oog voor detail.",
 
-    technologies: ["Gazon", "Hagen", "Seizoensonderhoud"],
-
-    images: [
-      "/jardan/Gemini_Generated_Image_eh8tnteh8tnteh8t.jpg",
-
-      "/jardan/Gemini_Generated_Image_oiy0qoiy0qoiy0qo (1).jpg",
-     
-      "/jardan/Gemini_Generated_Image_q4nfl6q4nfl6q4nf.jpg",
-                 "/jardan/Gemini_Generated_Image_h412feh412feh412.jpg",
-
-      "/jardan/Gemini_Generated_Image_qvaiz1qvaiz1qvai.jpg",
-      "/jardan/Gemini_Generated_Image_sqz19psqz19psqz1.jpg",
-      '/jardan/Gemini_Generated_Image_wpm30hwpm30hwpm3.jpg',
-      '/jardan/image.png',
+    technologies: [
+      "Gazon",
+      "Hagen",
+      "Seizoensonderhoud",
     ],
 
+images: [
+  {
+    src: "/jardan/c2e0929cb02af924bdcaddd0c4fcca4a.jpg",
+    title: "",
+  },
+  {
+    src: "/jardan/Gemini_Generated_Image_oiy0qoiy0qoiy0qo.jpg",
+    title: "Een verzorgde en groene tuin",
+  },
+  {
+    src: "/jardan/Gemini_Generated_Image_tm8g6ctm8g6ctm8g.jpg",
+    title: "",
+  },
+  {
+    src: "/jardan/5b248a746d2339a0ccaada9b3f3e8bcb.jpg",
+    title: "Een nette en uitnodigende buitenruimte",
+  },
+  {
+    src: "/jardan/Gemini_Generated_Image_qvaiz1qvaiz1qvai.jpg",
+    title: "",
+  },
+  {
+    src: "/jardan/Gemini_Generated_Image_uzzwiluzzwiluzzw.jpg",
+    title: "",
+  },
+  {
+    src: "/jardan/Gemini_Generated_Image_vtozt6vtozt6vtoz.jpg",
+    title: "",
+  },
+  {
+    src: "/jardan/image.png",
+    title: "",
+  },
+],
     quote: "Een verzorgde tuin geeft rust aan een heel huis.",
 
     processHeading: "Onze aanpak",
@@ -126,57 +336,60 @@ const getServiceDetails = () => ({
    Real project photography (no external placeholder services).
 ------------------------------------------------------------------------- */
 const flyerAsset =
-  "/schoonmaak/Gemini_Generated_Image_ql7amyql7amyql7a.jpg";
+  "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.jpg";
 const logoMarkAsset = "/image.png"; // Replace with your actual logo path
 const cleanHomeAsset =
-  "/schoonmaak/Gemini_Generated_Image_k1on6zk1on6zk1on.jpg";
+  "/schoonmaak/dbfcccd57bccd8e8f0809a49e288d43a.jpg";
 const cleanOfficeAsset =
-  "/schoonmaak/Gemini_Generated_Image_6xhnas6xhnas6xhn.jpg";
+  "/schoonmaak/07ddd52ab7faf8e5d75bbb7cef229ed7.jpg";
 const gardenCareAsset =
-  "/jardan/Gemini_Generated_Image_h412feh412feh412.jpg";
+  "/jardan/Gemini_Generated_Image_aoaattaoaattaoaa.jpg";
 
+/**
+ * Every service now carries an explicit `group` — "buiten" or "schoonmaak" —
+ * instead of relying on a non-existent `category` field. This is the single
+ * source of truth the tab switcher filters against.
+ */
 const services = [
   {
+    id: "schoonmaak-woningen",
     label: "Schoonmaak woningen",
     kicker: "Thuis",
+    group: "schoonmaak",
     icon: House,
+    detailKey: "schoonmaakWoningen",
     image: cleanHomeAsset,
-    text: "Een fris, rustig huis — met aandacht voor de plekken die het verschil maken.",
+    text: "Een schoon en verzorgd huis, met aandacht voor detail en uw dagelijkse ritme.",
   },
   {
-    label: "Schoonmaak bedrijven",
-    kicker: "Werken",
-    icon: Building2,
-    image: cleanOfficeAsset,
-    text: "Een verzorgde werkomgeving voor teams, klanten en bezoekers. Planbaar en discreet.",
-  },
-  {
-    label: "Schoonmaak restaurants",
-    kicker: "Horeca",
-    icon: Utensils,
-    image: flyerAsset,
-    text: "Hygiëne die je proeft. Zorgvuldig van keuken tot gastenruimte, voor elke service.",
-  },
-  {
-    label: "Schoonmaak cafés",
-    kicker: "Horeca",
-    icon: Coffee,
-    image: cleanOfficeAsset,
-    text: "Een uitnodigende plek begint met een schone vloer, bar en tafel.",
-  },
-  {
+    id: "schoonmaak-kantoren",
     label: "Schoonmaak kantoren",
     kicker: "Werken",
+    group: "schoonmaak",
     icon: BriefcaseBusiness,
+    detailKey: "schoonmaakKantoren",
     image: cleanOfficeAsset,
-    text: "Fris binnenkomen, prettig samenwerken. Voor kleine en grotere kantoorruimtes.",
+    text: "Een frisse en verzorgde werkplek voor medewerkers, klanten en bezoekers.",
   },
+{
+  id: "schoonmaak-restaurants/cafes",
+  label: "Schoonmaak restaurants/cafés",
+  kicker: "Horeca",
+  group: "schoonmaak",
+  icon: Utensils,
+  detailKey: "schoonmaakHoreca",
+  image: flyerAsset,
+  text: "Professionele schoonmaak voor restaurants, cafés en andere horecazaken. Van eetruimtes en terrassen tot vloeren en sanitaire ruimtes.",
+},
   {
+    id: "tuinonderhoud",
     label: "Tuinonderhoud",
     kicker: "Buiten",
+    group: "buiten",
     icon: Scissors,
+    detailKey: "tuinonderhoud",
     image: gardenCareAsset,
-    text: "Van een nette voortuin tot een groene buitenplek waar u graag tijd doorbrengt.",
+    text: "Van gazon en hagen tot seizoensonderhoud: een tuin die er verzorgd bij ligt, het hele jaar door.",
   },
 ];
 
@@ -204,22 +417,67 @@ const principles = [
 ];
 
 function withDetailImages(service) {
-  const images = service.images ?? [];
-  const imageAt = (index) => images[index] ?? images[0] ?? "";
+  const images = Array.isArray(service.images) ? service.images : [];
+
+  const imageAt = (index) => {
+    const image = images[index] ?? images[0];
+
+    if (!image) {
+      return {
+        src: "",
+        title: "",
+      };
+    }
+
+    if (typeof image === "string") {
+      return {
+        src: image,
+        title: "",
+      };
+    }
+
+    return {
+      src: image.src ?? "",
+      title: image.title ?? "",
+    };
+  };
+
+  const getImage = (key, index) => {
+    if (
+      service[key] &&
+      typeof service[key] === "object" &&
+      !Array.isArray(service[key])
+    ) {
+      return {
+        src: service[key].src ?? "",
+        title: service[key].title ?? "",
+      };
+    }
+
+    if (typeof service[key] === "string") {
+      return {
+        src: service[key],
+        title: "",
+      };
+    }
+
+    return imageAt(index);
+  };
 
   return {
     ...service,
-    leftImage: service.leftImage ?? imageAt(0),
-    rightImage: service.rightImage ?? imageAt(1),
-    image3: service.image3 ?? imageAt(2),
-    image4: service.image4 ?? imageAt(3),
-    image5: service.image5 ?? imageAt(4),
-    image6: service.image6 ?? imageAt(5),
-    image7: service.image7 ?? imageAt(6),
-    image8: service.image8 ?? imageAt(7),
+
+    leftImage: getImage("leftImage", 0),
+    rightImage: getImage("rightImage", 1),
+    image3: getImage("image3", 2),
+    image4: getImage("image4", 3),
+    image5: getImage("image5", 4),
+    image6: getImage("image6", 5),
+    image7: getImage("image7", 6),
+    image8: getImage("image8", 7),
+    image9: getImage("image9", 8),
   };
 }
-
 function AppLogo({ light = false }) {
   return (
     <a className="brand" href="#top" data-testid="link-logo">
@@ -467,19 +725,86 @@ function QuoteModal({ onClose }) {
   );
 }
 
+/**
+ * Premium sliding pill switcher for the two service groups.
+ * The sliding indicator is pure CSS (transform), driven by the active group —
+ * no measurement/JS layout needed since there are always exactly two, equal
+ * width tabs.
+ */
+function ServiceGroupSwitch({ active, onChange }) {
+  const groups = [
+    { id: "buiten", label: "Buiten" },
+    { id: "schoonmaak", label: "Schoonmaak" },
+  ];
+
+  return (
+    <div
+      className="relative inline-flex w-full max-w-[360px] rounded-full bg-[#073b66]/[0.07] p-1.5 sm:w-auto"
+      role="tablist"
+      aria-label="Diensten categorie"
+    >
+      <span
+        aria-hidden="true"
+        className="absolute inset-y-1.5 rounded-full bg-[#073b66] shadow-[0_10px_24px_-6px_rgba(7,59,102,0.45)] transition-[left] duration-500 ease-[cubic-bezier(.22,.85,.25,1)]"
+        style={{
+          width: "calc(50% - 6px)",
+          left: active === "buiten" ? "6px" : "50%",
+        }}
+      />
+
+      {groups.map((group) => (
+        <button
+          key={group.id}
+          type="button"
+          role="tab"
+          aria-selected={active === group.id}
+          onClick={() => onChange(group.id)}
+          className={`
+            relative z-10 flex-1 rounded-full px-5 py-3 text-sm font-medium
+            transition-colors duration-300 sm:px-8
+            ${
+              active === group.id
+                ? "text-white"
+                : "text-[#073b66]/55 hover:text-[#073b66]/85"
+            }
+          `}
+        >
+          {group.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [activeService, setActiveService] = useState(null);
+  const [activeServiceGroup, setActiveServiceGroup] = useState("buiten");
   const serviceDetails = getServiceDetails();
   const homeRef = useRef(null);
+
   const openQuote = () => {
     setQuoteOpen(true);
     setMenuOpen(false);
   };
-  const openService = (service) => setActiveService(withDetailImages(service));
+
+  const openService = (service) => {
+    const detail = serviceDetails[service.detailKey];
+
+    if (!detail) return;
+
+    setActiveService(withDetailImages(detail));
+  };
+
   const closeMenu = () => setMenuOpen(false);
+
+  const buitenServices = services.filter(
+    (service) => service.group === "buiten"
+  );
+  const schoonmaakServices = services.filter(
+    (service) => service.group === "schoonmaak"
+  );
 
   useEffect(() => {
     const root = homeRef.current;
@@ -674,8 +999,8 @@ function Home() {
                 className="section-heading text-[15px] leading-[1.65] text-[hsl(var(--muted-foreground))]"
                 data-reveal="right"
               >
-                Van binnen naar buiten, voor thuis en op het werk. Kies de
-                ondersteuning die uw omgeving nodig heeft.
+                Van woningen en kantoren tot restaurants, cafés en tuinen.
+                Kies de service die past bij uw omgeving.
               </p>
             </div>
 
@@ -721,134 +1046,251 @@ function Home() {
                 <p className="mt-1 max-w-4xl text-[13px] leading-[1.6] text-[hsl(var(--muted-foreground))]">
                   Ja. Fergal Green &amp; Clean is beschikbaar in Maastricht en
                   de omliggende plaatsen. We helpen particulieren en ondernemers
-                  met betrouwbare schoonmaak voor woningen, bedrijven,
-                  restaurants, cafés en kantoren — en met zorgvuldig
-                  tuinonderhoud buiten.
+                  met schoonmaak voor woningen, kantoren, restaurants en cafés —
+                  en met zorgvuldig tuinonderhoud.
                 </p>
               </div>
             </div>
 
             {/* Services */}
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {/* Schoonmaak */}
-              <article
-                data-testid="card-service-cleaning"
-                data-reveal="up"
-                onClick={() => openService(serviceDetails.schoonmaak)}
-                className="group relative aspect-[1.45/1] overflow-hidden rounded-[10px] bg-[#073b66] cursor-pointer"
-              >
-                <img
-                  src={serviceDetails.schoonmaak.images[7]}
-                  alt="Professionele schoonmaak van een woning in Maastricht"
-                  loading="lazy"
-                  className="
-        absolute
-        inset-0
-        h-full
-        w-full
-        object-none
-        transition-transform
-        duration-700
-        ease-out
-        group-hover:scale-[1.04]
-      "
-                />
-
-                <div
-                  className="
-        absolute
-        inset-0
-        bg-gradient-to-t
-        from-black/70
-        via-black/10
-        to-transparent
-      "
-                />
-
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
-                  <div>
-                    <span className="mb-2 block text-[10px] uppercase tracking-[0.16em] text-white/60">
-                      Professionele reiniging
-                    </span>
-
-                    <h3 className="text-[28px] font-medium tracking-[-0.03em] text-white">
-                      Schoonmaak
-                    </h3>
-                  </div>
-
-                  <span
-                    className="
-          flex h-10 w-10 items-center justify-center
-          rounded-full bg-white text-[#17352a]
-          transition-transform duration-300
-          group-hover:translate-x-1
-        "
-                  >
-                    →
+            <section className="mt-10">
+              {/* Section intro + category switch */}
+              <div className="mb-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+                <div>
+                  <span className="mb-2 block text-[10px] uppercase tracking-[0.22em] text-[#073b66]/50">
+                    Onze diensten
                   </span>
+
+                  <h2 className="text-3xl font-medium tracking-[-0.04em] text-[#073b66] md:text-4xl">
+                    Schoon &amp; verzorgd
+                  </h2>
+
+                  <p className="mt-3 max-w-md text-sm leading-6 text-black/50">
+                    Professionele schoonmaak en onderhoud voor woningen,
+                    bedrijven, kantoren en horeca in Maastricht.
+                  </p>
                 </div>
-              </article>
 
-              {/* Tuinonderhoud */}
-              <article
-                data-testid="card-service-garden"
-                data-reveal="up"
-                style={{ "--reveal-delay": "100ms" }}
-                onClick={() => openService(serviceDetails.tuinonderhoud)}
-                className="group relative aspect-[1.45/1] overflow-hidden rounded-[10px] bg-[#073b66] cursor-pointer"
-              >
-                <img
-                  src={serviceDetails.tuinonderhoud.images[7]}
-                  alt="Onderhouden tuin en gazon in Maastricht"
-                  loading="lazy"
-                  className="
-        absolute
-        inset-0
-        h-full
-        w-full
-        object-none
-        transition-transform
-        duration-700
-        ease-out
-        group-hover:scale-[1.04]
-      "
+                <ServiceGroupSwitch
+                  active={activeServiceGroup}
+                  onChange={setActiveServiceGroup}
                 />
+              </div>
 
+              {/* =========================
+                  BUITEN — single dominant feature card
+              ========================= */}
+              {activeServiceGroup === "buiten" && (
+                <div key="buiten" className="svc-fade">
+                  {buitenServices.map((service) => {
+                    const Icon = service.icon;
+
+                    return (
+                      <article
+                        key={service.id}
+                        data-testid={`card-service-${service.id}`}
+                        onClick={() => openService(service)}
+                        className="
+                          group relative flex min-h-[440px]
+                          cursor-pointer overflow-hidden rounded-[22px]
+                          bg-[#073b66] shadow-[0_30px_70px_-32px_rgba(7,59,102,0.5)]
+                          transition-transform duration-500 ease-out
+                          hover:-translate-y-1.5
+                          md:min-h-[540px]
+                        "
+                      >
+                        <img
+                          src={service.image}
+                          alt={`${service.label} in Maastricht`}
+                          loading="lazy"
+                          className="
+                            absolute inset-0 h-full w-full object-cover
+                            transition-transform duration-[1300ms] ease-out
+                            group-hover:scale-[1.06]
+                          "
+                        />
+
+                        <div
+                          className="
+                            absolute inset-0
+                            bg-gradient-to-t
+                            from-[#031c31]/92
+                            via-[#031c31]/25
+                            to-transparent
+                          "
+                        />
+                        <div
+                          className="
+                            absolute inset-0
+                            bg-gradient-to-r
+                            from-[#031c31]/45
+                            via-transparent
+                            to-transparent
+                          "
+                        />
+
+                        <div className="relative z-10 flex h-full w-full flex-col justify-between p-7 md:p-12">
+                          <div className="flex items-center justify-between">
+                            <span className="inline-flex items-center gap-2 rounded-full bg-white/12 px-4 py-2 text-[9px] uppercase tracking-[0.2em] text-white/85 backdrop-blur-md">
+                              Buiten · Onderhoud
+                            </span>
+
+                            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white text-[#073b66] transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-105">
+                              <Icon size={20} />
+                            </span>
+                          </div>
+
+                          <div className="max-w-xl">
+                            <h3 className="text-[34px] font-medium leading-[1.03] tracking-[-0.04em] text-white md:text-[54px]">
+                              {service.label}
+                            </h3>
+
+                            <p className="mt-4 max-w-md text-[15px] leading-relaxed text-white/70">
+                              {service.text}
+                            </p>
+
+                            <div
+                              className="
+                                mt-7 inline-flex items-center gap-2
+                                text-[11px] uppercase tracking-[0.16em]
+                                text-white/80
+                                transition-all duration-300
+                                group-hover:gap-3 group-hover:text-white
+                              "
+                            >
+                              Bekijk dienst <ArrowRight size={14} />
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* =========================
+                  SCHOONMAAK — balanced 4-card grid
+              ========================= */}
+              {activeServiceGroup === "schoonmaak" && (
                 <div
-                  className="
-        absolute
-        inset-0
-        bg-gradient-to-t
-        from-black/70
-        via-black/10
-        to-transparent
-      "
-                />
+                  key="schoonmaak"
+                  className="svc-fade grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
+                >
+                  {schoonmaakServices.map((service, index) => {
+                    const Icon = service.icon;
 
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
-                  <div>
-                    <span className="mb-2 block text-[10px] uppercase tracking-[0.16em] text-white/60">
-                      Onderhoud & verzorging
-                    </span>
+                    return (
+                      <article
+  key={service.id}
+  data-testid={`card-service-${service.id}`}
+  style={{ "--reveal-delay": `${index * 70}ms` }}
+  onClick={() => openService(service)}
+  className="
+    group relative aspect-[0.8/1]
+    cursor-pointer overflow-hidden rounded-[20px]
+    bg-[#073b66] shadow-[0_20px_45px_-25px_rgba(7,59,102,0.45)]
+    transition-all duration-500 ease-out
+    hover:-translate-y-1.5
+    hover:shadow-[0_30px_60px_-25px_rgba(7,59,102,0.55)]
+  "
+>
+                        {/* الصورة */}
+                        <img
+                          src={service.image}
+                          alt={`${service.label} in Maastricht`}
+                          loading="lazy"
+                          className="
+                            absolute inset-0 h-full w-full object-cover
+                            transition-transform duration-[1100ms] ease-out
+                            group-hover:scale-[1.08]
+                          "
+                        />
 
-                    <h3 className="text-[28px] font-medium tracking-[-0.03em] text-white">
-                      Tuinonderhoud
-                    </h3>
-                  </div>
+                        {/* overlay */}
+                        <div
+                          className="
+                            absolute inset-0
+                            bg-gradient-to-t
+                            from-[#021b2e]/95
+                            via-[#021b2e]/32
+                            to-transparent
+                          "
+                        />
 
-                  <span
-                    className="
-          flex h-10 w-10 items-center justify-center
-          rounded-full bg-white text-[#17352a]
-          transition-transform duration-300
-          group-hover:translate-x-1
-        "
-                  >
-                    →
-                  </span>
+                        {/* رقم */}
+                        <div className="absolute left-5 top-5">
+                          <span className="text-[11px] font-medium tracking-[0.2em] text-white/45">
+                            0{index + 1}
+                          </span>
+                        </div>
+
+                        {/* icon */}
+                        <div
+                          className="
+                            absolute right-5 top-5
+                            flex h-10 w-10 items-center justify-center
+                            rounded-full
+                            bg-white/10
+                            text-white
+                            backdrop-blur-md
+                            transition-all duration-300
+                            group-hover:bg-white
+                            group-hover:text-[#073b66]
+                          "
+                        >
+                          <Icon size={16} />
+                        </div>
+
+                        {/* content */}
+                        <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                          <span
+                            className="
+                              mb-2 inline-flex rounded-full
+                              bg-white/10 px-3 py-1.5
+                              text-[9px] uppercase tracking-[0.16em]
+                              text-white/75 backdrop-blur-md
+                            "
+                          >
+                            {service.kicker}
+                          </span>
+
+                          <h3 className="text-[21px] font-medium leading-tight tracking-[-0.035em] text-white">
+                            {service.label}
+                          </h3>
+
+                          <p
+                            className="
+                              mt-3 max-w-[290px]
+                              text-[13px] leading-[1.55]
+                              text-white/65
+                              transition-colors duration-300
+                              group-hover:text-white/80
+                            "
+                          >
+                            {service.text}
+                          </p>
+
+                          {/* arrow */}
+                          <div
+                            className="
+                              mt-4 flex translate-y-2 items-center gap-2
+                              text-[11px] uppercase tracking-[0.14em]
+                              text-white/0
+                              transition-all duration-300
+                              group-hover:translate-y-0
+                              group-hover:text-white/75
+                            "
+                          >
+                            Bekijk dienst
+                            <ArrowRight size={14} />
+                          </div>
+                        </div>
+                      </article>
+                    );
+                  })}
                 </div>
-              </article>
-            </div>
+              )}
+            </section>
           </div>
         </section>
         {quoteOpen && <QuoteModal onClose={() => setQuoteOpen(false)} />}
@@ -1279,36 +1721,13 @@ const styles = `
 .principle h3 { margin: 26px 0 10px; font-family: var(--font-display); font-size: 1.65rem; font-weight: 600; }
 .principle p { margin: 0; color: hsl(var(--muted-foreground)); line-height: 1.55; }
 .services-section { background: hsl(210 22% 91%); }
-.services-header { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 56px; }
-.services-header .section-heading p { max-width: 460px; }
-.service-area-note { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: start; max-width: 850px; margin: -20px 0 43px; padding: 22px 25px; border-left: 3px solid hsl(var(--primary)); background: hsl(48 30% 98% / .74); }
-.service-area-icon { display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%; background: hsl(var(--primary)); color: hsl(var(--accent)); }
-.service-area-icon svg { width: 21px; }
-.service-area-note .eyebrow { font-size: .62rem; }
-.service-area-note h3 { margin: 7px 0 7px; font-family: var(--font-display); font-size: clamp(1.45rem, 2.4vw, 2rem); line-height: 1.05; }
-.service-area-note p { max-width: 690px; margin: 0; color: hsl(var(--muted-foreground)); font-size: .96rem; line-height: 1.6; }
-.services-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 15px; }
-.service-card { position: relative; display: flex; flex-direction: column; justify-content: space-between; min-height: 270px; padding: 27px; overflow: hidden; border: 1px solid rgba(24,49,83,.12); background: hsl(var(--card)); transition: transform .45s cubic-bezier(.2,.75,.25,1), box-shadow .45s ease, background-color .28s ease; }
-.service-card:nth-child(1) { grid-column: span 5; }
-.service-card:nth-child(2) { grid-column: span 7; background: hsl(var(--secondary)); color: hsl(var(--card)); }
-.service-card:nth-child(3), .service-card:nth-child(4), .service-card:nth-child(5) { grid-column: span 4; }
-.service-card:nth-child(6) { grid-column: span 8; background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
-.service-card:hover { transform: translateY(-7px); box-shadow: var(--shadow-soft); }
-.service-card::after { position: absolute; right: -20px; bottom: -42px; width: 145px; height: 145px; content: ''; border: 1px solid currentColor; border-radius: 50%; opacity: .12; }
-.service-image-wrap { position: relative; height: 122px; margin: -27px -27px 25px; overflow: hidden; }
-.service-image-wrap::after { position: absolute; inset: 0; content: ''; background: linear-gradient(180deg, rgba(9, 28, 48, .03), rgba(9, 28, 48, .52)); }
-.service-image-wrap img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
-.service-card:hover .service-image-wrap img { transform: scale(1.06); }
-.service-card:nth-child(3) .service-image-wrap img { object-position: center 58%; }
-.service-icon { display: grid; place-items: center; width: 50px; height: 50px; border: 1px solid currentColor; border-radius: 50%; opacity: .92; transition: background-color .3s ease, color .3s ease, transform .35s ease; }
-.service-icon svg { width: 23px; }
-.service-card:hover .service-icon { background: hsl(var(--accent)); color: hsl(var(--secondary)); transform: rotate(-7deg) scale(1.06); }
-.service-meta { display: flex; align-items: start; justify-content: space-between; gap: 16px; }
-.service-kicker { color: hsl(var(--primary)); font-family: var(--font-mono-family); font-size: .65rem; letter-spacing: .1em; text-transform: uppercase; }
-.service-card:nth-child(2) .service-kicker, .service-card:nth-child(6) .service-kicker { color: hsl(var(--accent)); }
-.service-card h3 { max-width: 240px; margin: 25px 0 0; font-size: 1.72rem; line-height: 1.07; }
-.service-card p { max-width: 390px; margin: 10px 0 0; color: hsl(var(--muted-foreground)); line-height: 1.5; }
-.service-card:nth-child(2) p, .service-card:nth-child(6) p { color: rgba(248,246,235,.68); }
+
+/* --- Redesigned services group (Buiten hero card + Schoonmaak grid) --- */
+.svc-fade { animation: svc-fade-in .55s cubic-bezier(.22,.8,.25,1) both; }
+@keyframes svc-fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 .visual-section { background: hsl(var(--background)); }
 .visual-header { display: flex; justify-content: space-between; align-items: end; gap: 40px; margin-bottom: 50px; }
@@ -1430,6 +1849,7 @@ const styles = `
     transition-duration: .01ms !important;
   }
   [data-reveal] { opacity: 1; transform: none; }
+  .svc-fade { animation: none; }
 }
 
 @media (max-width: 900px) {
@@ -1468,10 +1888,6 @@ const styles = `
   .section-heading h2 { font-size: clamp(2.7rem, 13vw, 4.5rem); }
   .principles { grid-template-columns: 1fr; }
   .principle, .principle:nth-child(odd), .principle:nth-child(even) { padding: 25px 0; border-right: 0; }
-  .services-header { align-items: start; flex-direction: column; margin-bottom: 35px; }
-  .service-area-note { grid-template-columns: 1fr; gap: 14px; margin: -8px 0 30px; padding: 20px; }
-  .services-grid { display: flex; flex-direction: column; gap: 12px; }
-  .service-card { min-height: 225px; }
   .sustain-points { grid-template-columns: 1fr; }
   .visual-header { align-items: start; flex-direction: column; gap: 20px; margin-bottom: 34px; }
   .visual-grid { display: flex; flex-direction: column; gap: 12px; }
