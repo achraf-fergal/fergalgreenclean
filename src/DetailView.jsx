@@ -890,7 +890,7 @@ const revealSection = (sec) => {
             {project.name}
           </span>
           <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
-            {project.image8.title}
+            {project.image7.title}
           </h3>
           <div className="mt-2 h-px w-6" style={{ background: project.color }} />
         </div>
@@ -963,7 +963,7 @@ const revealSection = (sec) => {
                 {project.name}
               </span>
               <h3 className="text-[0.82rem] md:text-[1.05rem] font-medium leading-[1.2] text-white">
-                {project.image7.title}
+                {project.image4.title}
               </h3>
               <div className="mt-2 h-px w-6" style={{ background: project.color }} />
             </div>

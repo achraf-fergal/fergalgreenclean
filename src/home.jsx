@@ -64,7 +64,7 @@ const getServiceDetails = () => ({
       },
       {
         src: "https://i.pinimg.com/736x/96/ee/a0/96eea0aef385928fccf4e97b6e598a9c.jpg",
-        title: "Meubel reiniging",
+        title: " Toiletreiniging",
       },
       {
         src: "https://i.pinimg.com/1200x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
@@ -76,7 +76,8 @@ const getServiceDetails = () => ({
       },
       {
         src: "/schoonmaak/image.png",
-        title: "Keuken diepereiniging",
+        title: "Keuken diepereiniging  ",
+
       },
       {
         src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.jpg",
@@ -137,11 +138,11 @@ const getServiceDetails = () => ({
       },
       {
         src: "https://i.pinimg.com/1200x/d8/9e/ea/d89eeafa2a82b50f05ae2394fbd70797.jpg",
-        title: "Bureaus reinigen",
+        title: "Vloeren dweilen        ",
       },
       {
         src: "https://i.pinimg.com/236x/42/d3/52/42d352c3cbe328215062aefd5d29e380.jpg",
-        title: "Kantoor onderhoud",
+        title: "Vloeren dweilen        ",
       },
       {
         src: "https://i.pinimg.com/1200x/69/36/64/693664823d4efe3330e35cba838f4f14.jpg",
@@ -153,11 +154,11 @@ const getServiceDetails = () => ({
       },
       {
         src: "https://i.pinimg.com/736x/96/ee/a0/96eea0aef385928fccf4e97b6e598a9c.jpg",
-        title: "Oppervlakken afstoffen",
+        title: "Toiletreiniging        ",
       },
       {
         src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.jpg",
-        title: "Meubels afstoffen",
+        title: " Oppervlakken afstoffen        ",
       },
     ],
 
@@ -182,7 +183,7 @@ const getServiceDetails = () => ({
   schoonmaakHoreca: {
     id: "schoonmaak-horeca",
     number: "03",
-    name: "Schoonmaak restaurants/cafés",
+    name: " restaurants/cafés",
     category: "Professionele reiniging voor restaurants & cafés",
     location: "Maastricht",
     year: "2026",
@@ -217,7 +218,7 @@ const getServiceDetails = () => ({
       },
       {
         src: "https://i.pinimg.com/736x/96/ee/a0/96eea0aef385928fccf4e97b6e598a9c.jpg",
-        title: "Oppervlakken reinigen",
+        title: "Toiletreiniging        ",
       },
       {
         src: "https://i.pinimg.com/1200x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
@@ -282,7 +283,7 @@ const getServiceDetails = () => ({
 
 images: [
   {
-    src: "/jardan/c2e0929cb02af924bdcaddd0c4fcca4a.jpg",
+    src: "/jardan/image.png",
     title: "",
   },
   {
@@ -310,7 +311,7 @@ images: [
     title: "",
   },
   {
-    src: "/jardan/image.png",
+    src: "/jardan/c2e0929cb02af924bdcaddd0c4fcca4a.jpg",
     title: "",
   },
 ],
@@ -339,11 +340,11 @@ const flyerAsset =
   "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.jpg";
 const logoMarkAsset = "/image.png"; // Replace with your actual logo path
 const cleanHomeAsset =
-  "/schoonmaak/dbfcccd57bccd8e8f0809a49e288d43a.jpg";
+  "/schoonmaak/image.png";
 const cleanOfficeAsset =
-  "/schoonmaak/07ddd52ab7faf8e5d75bbb7cef229ed7.jpg";
+  "https://i.pinimg.com/1200x/81/a8/e3/81a8e38d2f96faa436c99f580bc6ff85.jpg";
 const gardenCareAsset =
-  "/jardan/Gemini_Generated_Image_aoaattaoaattaoaa.jpg";
+  "/jardan/image.png";
 
 /**
  * Every service now carries an explicit `group` — "buiten" or "schoonmaak" —
