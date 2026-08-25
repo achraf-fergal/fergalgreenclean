@@ -51,7 +51,7 @@ const getServiceDetails = () => ({
     ],
     images: [
       {
-        src: "/schoonmaak/dbfcccd57bccd8e8f0809a49e288d43a.jpg",
+        src: "/schoonmaak/image.png",
         title: "Woning schoonmaak",
       },
       {
@@ -129,7 +129,7 @@ const getServiceDetails = () => ({
 
     images: [
       {
-        src: "/schoonmaak/07ddd52ab7faf8e5d75bbb7cef229ed7.jpg",
+        src: "https://i.pinimg.com/1200x/81/a8/e3/81a8e38d2f96faa436c99f580bc6ff85.jpg",
         title: "Kantoor schoonmaak",
       },
       {
