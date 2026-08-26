@@ -55,11 +55,11 @@ const getServiceDetails = () => ({
         title: "Woning schoonmaak",
       },
       {
-        src: "https://i.pinimg.com/1200x/73/84/65/7384656d66d4f0fa13fd3e1f25453368.jpg",
+        src: "https://i.pinimg.com/736x/73/84/65/7384656d66d4f0fa13fd3e1f25453368.jpg",
         title: "Interieur reiniging",
       },
       {
-        src: "https://i.pinimg.com/1200x/9f/de/fe/9fdefece61901cc2f8b3beba090c88ad.jpg",
+        src: "https://i.pinimg.com/736x/9f/de/fe/9fdefece61901cc2f8b3beba090c88ad.jpg",
         title: "Dieptereiniging",
       },
       {
@@ -67,11 +67,11 @@ const getServiceDetails = () => ({
         title: " Toiletreiniging",
       },
       {
-        src: "https://i.pinimg.com/1200x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
+        src: "https://i.pinimg.com/736x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
         title: "Interieur onderhoud",
       },
       {
-        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.jpg",
+        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.webp",
         title: "Trapreiniging",
       },
       {
@@ -80,11 +80,11 @@ const getServiceDetails = () => ({
 
       },
       {
-        src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.jpg",
+        src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.webp",
         title: "Vloeren dweilen",
       },
       {
-        src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.jpg",
+        src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.webp",
         title: "Oppervlakken afstoffen",
       },
     ],
@@ -129,7 +129,7 @@ const getServiceDetails = () => ({
 
     images: [
       {
-        src: "https://i.pinimg.com/1200x/81/a8/e3/81a8e38d2f96faa436c99f580bc6ff85.jpg",
+        src: "https://i.pinimg.com/736x/81/a8/e3/81a8e38d2f96faa436c99f580bc6ff85.jpg",
         title: "Kantoor schoonmaak",
       },
       {
@@ -137,7 +137,7 @@ const getServiceDetails = () => ({
         title: "Werkplek reinigen",
       },
       {
-        src: "https://i.pinimg.com/1200x/d8/9e/ea/d89eeafa2a82b50f05ae2394fbd70797.jpg",
+        src: "https://i.pinimg.com/736x/d8/9e/ea/d89eeafa2a82b50f05ae2394fbd70797.jpg",
         title: "Vloeren dweilen        ",
       },
       {
@@ -145,11 +145,11 @@ const getServiceDetails = () => ({
         title: "Vloeren dweilen        ",
       },
       {
-        src: "https://i.pinimg.com/1200x/69/36/64/693664823d4efe3330e35cba838f4f14.jpg",
+        src: "https://i.pinimg.com/736x/69/36/64/693664823d4efe3330e35cba838f4f14.jpg",
         title: "Sanitaire reiniging",
       },
       {
-        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.jpg",
+        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.webp",
         title: "Trapreiniging",
       },
       {
@@ -157,7 +157,7 @@ const getServiceDetails = () => ({
         title: "Toiletreiniging        ",
       },
       {
-        src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.jpg",
+        src: "/schoonmaak/Gemini_Generated_Image_a8ddea8ddea8ddea.webp",
         title: " Oppervlakken afstoffen        ",
       },
     ],
@@ -205,15 +205,15 @@ const getServiceDetails = () => ({
 
     images: [
       {
-        src: "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.jpg",
+        src: "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.webp",
         title: "Restaurant schoonmaak",
       },
       {
-        src: "https://i.pinimg.com/1200x/af/8e/ea/af8eea5349adca240c9cd70974571d2e.jpg",
+        src: "https://i.pinimg.com/736x/40/11/d3/4011d34a679cc9cf13d10a805daf5f2b.jpg",
         title: "Horeca schoonmaak",
       },
       {
-        src: "https://i.pinimg.com/1200x/9f/de/fe/9fdefece61901cc2f8b3beba090c88ad.jpg",
+        src: "https://i.pinimg.com/736x/9f/de/fe/9fdefece61901cc2f8b3beba090c88ad.jpg",
         title: "Dieptereiniging",
       },
       {
@@ -221,11 +221,11 @@ const getServiceDetails = () => ({
         title: "Toiletreiniging        ",
       },
       {
-        src: "https://i.pinimg.com/1200x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
+        src: "https://i.pinimg.com/736x/12/c7/0c/12c70cb10d71b31de1eea62c6b6a123f.jpg",
         title: "Eetruimte reinigen",
       },
       {
-        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.jpg",
+        src: "/schoonmaak/962169ea8910d3308d853f39cbae03c3.webp",
         title: "Trapreiniging",
       },
       {
@@ -233,7 +233,7 @@ const getServiceDetails = () => ({
         title: "Keuken diepereiniging",
       },
       {
-        src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.jpg",
+        src: "/schoonmaak/Gemini_Generated_Image_oe2k60oe2k60oe2k.webp",
         title: "Vloeren dweilen",
       },
       {
@@ -287,31 +287,31 @@ images: [
     title: "",
   },
   {
-    src: "/jardan/Gemini_Generated_Image_oiy0qoiy0qoiy0qo.jpg",
+    src: "/jardan/Gemini_Generated_Image_oiy0qoiy0qoiy0qo.webp",
     title: "Een verzorgde en groene tuin",
   },
   {
-    src: "/jardan/Gemini_Generated_Image_tm8g6ctm8g6ctm8g.jpg",
+    src: "/jardan/Gemini_Generated_Image_tm8g6ctm8g6ctm8g.webp",
     title: "",
   },
   {
-    src: "/jardan/5b248a746d2339a0ccaada9b3f3e8bcb.jpg",
+    src: "/jardan/5b248a746d2339a0ccaada9b3f3e8bcb.webp",
     title: "Een nette en uitnodigende buitenruimte",
   },
   {
-    src: "/jardan/Gemini_Generated_Image_qvaiz1qvaiz1qvai.jpg",
+    src: "/jardan/Gemini_Generated_Image_qvaiz1qvaiz1qvai.webp",
     title: "",
   },
   {
-    src: "/jardan/Gemini_Generated_Image_uzzwiluzzwiluzzw.jpg",
+    src: "/jardan/Gemini_Generated_Image_uzzwiluzzwiluzzw.webp",
     title: "",
   },
   {
-    src: "/jardan/Gemini_Generated_Image_vtozt6vtozt6vtoz.jpg",
+    src: "/jardan/Gemini_Generated_Image_vtozt6vtozt6vtoz.webp",
     title: "",
   },
   {
-    src: "/jardan/c2e0929cb02af924bdcaddd0c4fcca4a.jpg",
+    src: "/jardan/c2e0929cb02af924bdcaddd0c4fcca4a.webp",
     title: "",
   },
 ],
@@ -337,7 +337,7 @@ images: [
    Real project photography (no external placeholder services).
 ------------------------------------------------------------------------- */
 const flyerAsset =
-  "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.jpg";
+  "/schoonmaak/Gemini_Generated_Image_aoaattaoaattaoaa.webp";
 const logoMarkAsset = "/image.png"; // Replace with your actual logo path
 const cleanHomeAsset =
   "/schoonmaak/image.png";
