@@ -55,7 +55,7 @@ const getServiceDetails = () => ({
         title: "Woning schoonmaak",
       },
       {
-        src: "https://i.pinimg.com/1200x/af/8e/ea/af8eea5349adca240c9cd70974571d2e.jpg",
+        src: "https://i.pinimg.com/1200x/73/84/65/7384656d66d4f0fa13fd3e1f25453368.jpg",
         title: "Interieur reiniging",
       },
       {
