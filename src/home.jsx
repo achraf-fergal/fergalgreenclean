@@ -1201,10 +1201,11 @@ function Home() {
                           alt={`${service.label} in Maastricht`}
                           loading="lazy"
                           className="
-                            absolute inset-0 h-full w-full object-cover
+                            absolute inset-0 h-full w-full object-fill
                             transition-transform duration-[1100ms] ease-out
                             group-hover:scale-[1.08]
                           "
+                          
                         />
 
                         {/* overlay */}
